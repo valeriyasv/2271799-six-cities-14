@@ -1,17 +1,18 @@
-import ListOffers from "../../components/list-offers/list-offers";
-import MainHeader from "../../components/header/main-header";
-import Locations from "../../components/locations/locations";
+import ListOffers from '../../components/offers/list-offers/list-offers';
+import MainHeader from '../../components/header/main-header';
+import Locations from '../../components/locations/locations';
 
 type OffersType = {
+  id: number;
   src: string;
   price: number;
-  description: string;
+  title: string;
 }
 
 type MainScreenProps = {
   offersCount: number;
   cities: string[];
-  offers: OffersType[]
+  offers: OffersType[];
 }
 
 function MainScreen({offersCount, cities, offers}: MainScreenProps): JSX.Element {
@@ -45,7 +46,7 @@ function MainScreen({offersCount, cities, offers}: MainScreenProps): JSX.Element
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <ListOffers offers={offers}/>
+              <ListOffers offers={offers} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

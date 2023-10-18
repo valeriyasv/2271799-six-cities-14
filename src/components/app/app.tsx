@@ -1,15 +1,16 @@
-import MainScreen from "../../pages/main/main-screen";
+import MainScreen from '../../pages/main/main-screen';
 
 type OffersType = {
+  id: number;
   src: string;
   price: number;
-  description: string;
+  title: string;
 }
 
 type AppScreenProps = {
   offersCount: number;
   cities: string[];
-  offers: OffersType[]
+  offers: OffersType[];
 }
 
 function App({offersCount, cities, offers}: AppScreenProps): JSX.Element {
@@ -17,8 +18,9 @@ function App({offersCount, cities, offers}: AppScreenProps): JSX.Element {
     <MainScreen
       offersCount={offersCount}
       cities={cities}
-      offers={offers} />
-  )
+      offers={offers}
+    />
+  );
 }
 
 export default App;
