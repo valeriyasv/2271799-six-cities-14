@@ -58,3 +58,10 @@ export type ImageOfferType = {
 export const ImagesOffersData: ImageOfferType[] = [
 
 ];
+
+export enum AppRoute {
+  Main = '/',
+  Login = '/login',
+  Favorites = '/favorites',
+  Offer = '/offer'
+}
