@@ -1,5 +1,5 @@
 import ListOffers from '../../components/offers/list-offers/list-offers';
-import MainHeader from '../../components/header/main-header';
+import Header from '../../components/header/header';
 import Locations from '../../components/locations/locations';
 
 type OffersType = {
@@ -19,7 +19,7 @@ function MainScreen({offersCount, cities, offers}: MainScreenProps): JSX.Element
   return (
     <div className="page page--gray page--main">
 
-      <MainHeader />
+      <Header />
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
