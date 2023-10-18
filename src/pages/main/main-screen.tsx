@@ -1,6 +1,7 @@
 import ListOffers from '../../components/offers/list-offers/list-offers';
 import Header from '../../components/header/header';
 import Locations from '../../components/locations/locations';
+import { Helmet } from 'react-helmet-async';
 
 type OffersType = {
   id: number;
@@ -18,6 +19,9 @@ type MainScreenProps = {
 function MainScreen({offersCount, cities, offers}: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>6 cities. Choose your place!</title>
+      </Helmet>
 
       <Header />
 
