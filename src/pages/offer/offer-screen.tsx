@@ -23,6 +23,8 @@ type OffersScreenProps = {
 }
 
 function OfferScreen({images, title, price, goods, id, isPremium, rating, type, bedrooms, maxAdults, host, previewImage}: OffersScreenProps): JSX.Element {
+  const ratingPercentage: number = (rating / 6) * 100;
+
   return (
     <main className="page__main page__main--offer">
       <section className="offer">
@@ -49,7 +51,7 @@ function OfferScreen({images, title, price, goods, id, isPremium, rating, type, 
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">
-                <span style={{width: '80%'}}></span>
+                <span style={{ width: `${ratingPercentage}%` }}></span>
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="offer__rating-value rating__value">{rating}</span>
