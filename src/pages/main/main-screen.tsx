@@ -2,13 +2,7 @@ import ListOffers from '../../components/offers/list-offers/list-offers';
 import Header from '../../components/header/header';
 import Locations from '../../components/locations/locations';
 import { Helmet } from 'react-helmet-async';
-
-type OffersType = {
-  id: number;
-  src: string;
-  price: number;
-  title: string;
-}
+import { OffersType } from '../../const';
 
 type MainScreenProps = {
   offersCount: number;
