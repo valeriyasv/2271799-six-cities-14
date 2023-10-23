@@ -1,11 +1,15 @@
-import MainHeader from '../../components/header/main-header';
+import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
+import {Helmet} from 'react-helmet-async';
 
 function FavoritesScreen(): JSX.Element {
   return (
     <div className="page">
+      <Helmet>
+        <title>6 cities. Favorites offers</title>
+      </Helmet>
 
-      <MainHeader />
+      <Header />
 
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">

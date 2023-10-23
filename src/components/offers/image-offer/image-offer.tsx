@@ -1,6 +1,8 @@
-import { ImageOfferType } from '../../../const';
+type ImageOfferProps = {
+  src: string;
+}
 
-function ImageOffer({src}: ImageOfferType): JSX.Element {
+function ImageOffer({src}: ImageOfferProps): JSX.Element {
   return (
     <div className="offer__image-wrapper">
       <img className="offer__image" src={src} alt="Photo studio" />

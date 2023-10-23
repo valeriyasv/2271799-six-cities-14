@@ -1,13 +1,8 @@
 import ListOffers from '../../components/offers/list-offers/list-offers';
-import MainHeader from '../../components/header/main-header';
+import Header from '../../components/header/header';
 import Locations from '../../components/locations/locations';
-
-type OffersType = {
-  id: number;
-  src: string;
-  price: number;
-  title: string;
-}
+import { Helmet } from 'react-helmet-async';
+import { OffersType } from '../../types/Offers.type';
 
 type MainScreenProps = {
   offersCount: number;
@@ -18,8 +13,11 @@ type MainScreenProps = {
 function MainScreen({offersCount, cities, offers}: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>6 cities. Choose your place!</title>
+      </Helmet>
 
-      <MainHeader />
+      <Header />
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
