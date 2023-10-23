@@ -1,13 +1,13 @@
 import { Host } from './Host.type';
 
 export type OffersType = {
-    city: {
+    city?: {
       name: string;
     };
     previewImage: string;
     images: string[];
     title: string;
-    isFavorite: boolean;
+    isFavorite?: boolean;
     isPremium: boolean;
     rating: number;
     type: string;
@@ -16,6 +16,6 @@ export type OffersType = {
     price: number;
     goods: string[];
     host: Host;
-    description: string;
+    description?: string;
     id: number;
 };

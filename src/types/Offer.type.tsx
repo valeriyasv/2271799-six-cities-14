@@ -3,7 +3,7 @@ import { Host } from './Host.type';
 export type Offer = {
     images: string[];
       title: string;
-      isFavorite: boolean;
+      isFavorite?: boolean;
       isPremium: boolean;
       rating: number;
       type: string;
