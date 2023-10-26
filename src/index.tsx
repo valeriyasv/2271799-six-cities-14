@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { Setting } from './const';
-import { cities } from './mock/locations-data';
-import { offerData } from './mock/offers-data';
-import { offersData } from './mock/offers-data';
+import { cities } from './mocks/locations';
+import { offerData } from './mocks/offers';
+import { offersData } from './mocks/offers';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

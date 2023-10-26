@@ -1,14 +1,9 @@
 import { Link } from 'react-router-dom';
+import { CardOfferProps } from '../../../types/Common.type';
 
-type CardOfferProps = {
-  src: string;
-  price: number;
-  title: string;
-}
-
-function CardOffer({src, price, title}: CardOfferProps): JSX.Element {
+function CardOffer({src, price, title, id}: CardOfferProps): JSX.Element {
   return (
-    <Link to={`/offers/${5}`}>
+    <Link to={`/offers/${id}`}>
       <article className='cities__card place-card'>
         <div className='place-card__mark'>
           <span>Premium</span>

@@ -7,8 +7,8 @@ import FavoritesScreen from '../../pages/favorites/favorites-screen';
 import OfferScreen from '../../pages/offer/offer-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import { OffersCount } from '../../types/CommonTypes.type';
-import { Cities } from '../../types/CommonTypes.type';
+import { OffersCount } from '../../types/Common.type';
+import { Cities } from '../../types/Common.type';
 import { Offer } from '../../types/Offer.type';
 import { OffersType } from '../../types/Offers.type';
 
@@ -29,7 +29,7 @@ function App({offersCount, cities, offers, offer}: AppScreenProps): JSX.Element 
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.Auth} >
-              <FavoritesScreen />
+              <FavoritesScreen title={offer.title} price={offer.price} src={offer.previewImage} id={offer.id}/>
             </PrivateRoute>
           }
           />
