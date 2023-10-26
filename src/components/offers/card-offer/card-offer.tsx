@@ -1,10 +1,24 @@
 import { Link } from 'react-router-dom';
 import { CardOfferProps } from '../../../types/Common.type';
+import { useState } from 'react';
 
 function CardOffer({src, price, title, id}: CardOfferProps): JSX.Element {
+  const [active, setActive] = useState(false);
+
+  const handleMouseEnter = () => {
+    setActive(true);
+  };
+
+  const handleMouseLeave = () => {
+    setActive(false);
+  };
+
   return (
     <Link to={`/offers/${id}`}>
-      <article className='cities__card place-card'>
+      <article className={`cities__card place-card ${active ? 'place-card--active' : ''}`}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <div className='place-card__mark'>
           <span>Premium</span>
         </div>
