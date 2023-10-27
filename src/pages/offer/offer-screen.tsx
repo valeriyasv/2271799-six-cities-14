@@ -1,9 +1,9 @@
 import ImageOffer from '../../components/offers/image-offer/image-offer';
 import InsideOffers from '../../components/offers/inside-offer/inside-offer';
 import CardOffer from '../../components/offers/card-offer/card-offer';
-import { OffersType } from '../../types/Offers.type';
+import { OffersType } from '../../types/offers';
 import Header from '../../components/header/header';
-import Form from '../../components/form/form';
+import Form from '../../components/review-form/review-form';
 
 function OfferScreen({images, title, price, goods, id, isPremium, rating, type, bedrooms, maxAdults, host, previewImage}: OffersType): JSX.Element {
   const ratingPercentage: number = (rating / 6) * 100;

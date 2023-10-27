@@ -1,4 +1,4 @@
-import { Host } from './Host.type';
+import { Host } from './host';
 
 export type OffersType = {
     city?: {

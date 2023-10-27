@@ -7,10 +7,9 @@ import FavoritesScreen from '../../pages/favorites/favorites-screen';
 import OfferScreen from '../../pages/offer/offer-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import { OffersCount } from '../../types/Common.type';
-import { Cities } from '../../types/Common.type';
-import { Offer } from '../../types/Offer.type';
-import { OffersType } from '../../types/Offers.type';
+import { OffersCount, Cities } from '../../types/common';
+import { Offer } from '../../types/offer';
+import { OffersType } from '../../types/offers';
 
 
 type AppScreenProps = {

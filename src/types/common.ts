@@ -7,4 +7,5 @@ export type CardOfferProps = {
     price: number;
     title: string;
     id?: number;
+    block?: string;
 };

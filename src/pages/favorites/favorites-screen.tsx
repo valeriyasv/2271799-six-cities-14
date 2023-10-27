@@ -2,7 +2,7 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import {Helmet} from 'react-helmet-async';
 import CardOffer from '../../components/offers/card-offer/card-offer';
-import { CardOfferProps } from '../../types/Common.type';
+import { CardOfferProps } from '../../types/common';
 
 function FavoritesScreen({src, price, title, id}: CardOfferProps): JSX.Element {
   return (
@@ -27,7 +27,7 @@ function FavoritesScreen({src, price, title, id}: CardOfferProps): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <CardOffer src={src} price={price} title={title} id={id}/>
+                  <CardOffer src={src} price={price} title={title} id={id} block={'favorites'}/>
                 </div>
               </li>
 
