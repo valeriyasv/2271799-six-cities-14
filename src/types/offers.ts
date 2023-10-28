@@ -1,8 +1,10 @@
 import { Host } from './host';
+import { LocationType } from './location';
 
 export type OffersType = {
     city?: {
       name: string;
+      location?: LocationType;
     };
     previewImage: string;
     images: string[];

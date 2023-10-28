@@ -1,8 +1,9 @@
 import { OffersType } from '../types/offers';
 
+
 export const offerData: OffersType = {
   city: {
-    name: 'Dusseldorf',
+    name: 'Dusseldorf'
   },
   previewImage: 'https://14.react.pages.academy/static/offer/3.jpg',
   images: [
