@@ -2,8 +2,8 @@ import React, { ChangeEvent, useState } from 'react';
 import { MIN_COMMENT_LENGTH } from '../../const';
 
 function ReviewForm(): JSX.Element {
-  const [comment, setComment] = useState('');
-  const [rating, setRating] = useState('');
+  const [comment, setComment] = useState<string>('');
+  const [rating, setRating] = useState<number | string>(0);
   const isValid = comment.length >= MIN_COMMENT_LENGTH &&
     rating !== '';
 
