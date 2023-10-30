@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { MIN_COMMENT_LENGTH } from '../../const';
 
-function Form(): JSX.Element {
+function ReviewForm(): JSX.Element {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
   const isValid = comment.length >= MIN_COMMENT_LENGTH &&
@@ -58,4 +58,4 @@ function Form(): JSX.Element {
   );
 }
 
-export default Form;
+export default ReviewForm;
