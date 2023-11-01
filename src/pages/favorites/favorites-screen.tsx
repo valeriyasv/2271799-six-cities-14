@@ -2,9 +2,13 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import {Helmet} from 'react-helmet-async';
 import CardOffer from '../../components/offers/card-offer/card-offer';
-import { CardOfferProps } from '../../types/common';
+import { OffersType } from '../../types/offers';
 
-function FavoritesScreen({src, price, title, id}: CardOfferProps): JSX.Element {
+type FavoritesProps = {
+  favorites: OffersType[];
+}
+
+function FavoritesScreen({favorites}: FavoritesProps): JSX.Element {
   return (
     <div className="page">
       <Helmet>
@@ -27,7 +31,9 @@ function FavoritesScreen({src, price, title, id}: CardOfferProps): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <CardOffer src={src} price={price} title={title} id={id} block={'favorites'}/>
+                  {favorites.map((item) => (
+                    <CardOffer key={item.id} src={item.previewImage} price={item.price} title={item.title} id={item.id} block={'favorites'} />
+                  ))}
                 </div>
               </li>
 
@@ -40,7 +46,9 @@ function FavoritesScreen({src, price, title, id}: CardOfferProps): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <CardOffer src={src} price={price} title={title} id={id}/>
+                  {favorites.map((item) => (
+                    <CardOffer key={item.id} src={item.previewImage} price={item.price} title={item.title} id={item.id} block={'favorites'} />
+                  ))}
                 </div>
               </li>
             </ul>
