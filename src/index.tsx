@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { Setting } from './const';
 import { cities } from './mocks/locations';
-import { offerData } from './mocks/offers';
 import { offersData } from './mocks/offers';
 import { favoritesData } from './mocks/favorites';
 
@@ -17,7 +16,6 @@ root.render(
       offersCount={Setting.OffersCount}
       cities={cities}
       offers={offersData}
-      offer={offerData}
       favorites={favoritesData}
     />
   </React.StrictMode>,

@@ -15,7 +15,7 @@ type AppScreenProps = {
   offersCount: OffersCount;
   cities: Cities;
   offers: OffersType[];
-  favorites: string[];
+  favorites: OffersType[];
 }
 
 function App({offersCount, cities, offers, favorites}: AppScreenProps): JSX.Element {
