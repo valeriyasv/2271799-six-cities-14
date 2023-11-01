@@ -32,21 +32,8 @@ function App({offersCount, cities, offers, offer}: AppScreenProps): JSX.Element 
             </PrivateRoute>
           }
           />
-          <Route path={AppRoute.Offer} element={
-            <OfferScreen
-              images={offer.images}
-              title={offer.title}
-              price={offer.price}
-              goods={offer.goods}
-              id={offer.id}
-              isPremium={offer.isPremium}
-              rating={offer.rating}
-              type={offer.type}
-              bedrooms={offer.bedrooms}
-              maxAdults={offer.maxAdults}
-              host={offer.host}
-              previewImage={offer.previewImage}
-            />
+          <Route path={`${AppRoute.Offer}/:id`} element={
+            <OfferScreen />
           }
           />
           <Route path='*' element={<NotFoundScreen />} />

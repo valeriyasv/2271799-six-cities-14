@@ -3,9 +3,8 @@ import { MIN_COMMENT_LENGTH } from '../../const';
 
 function ReviewForm(): JSX.Element {
   const [comment, setComment] = useState<string>('');
-  const [rating, setRating] = useState<number | string>(0);
-  const isValid = comment.length >= MIN_COMMENT_LENGTH &&
-    rating !== '';
+  const [rating, setRating] = useState<number | string>('');
+  const isValid = comment.length >= MIN_COMMENT_LENGTH && rating !== '';
 
   function handleCommentChange(evt: ChangeEvent<HTMLTextAreaElement>) {
     setComment(evt.target.value);

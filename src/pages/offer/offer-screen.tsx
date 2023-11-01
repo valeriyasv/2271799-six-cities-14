@@ -1,12 +1,23 @@
 import ImageOffer from '../../components/offers/image-offer/image-offer';
 import InsideOffers from '../../components/offers/inside-offer/inside-offer';
 import CardOffer from '../../components/offers/card-offer/card-offer';
-import { OffersType } from '../../types/offers';
 import Header from '../../components/header/header';
 import ReviewForm from '../../components/review-form/review-form';
+import { useParams } from 'react-router-dom';
+import { offersData } from '../../mocks/offers';
 
-function OfferScreen({images, title, price, goods, id, isPremium, rating, type, bedrooms, maxAdults, host, previewImage}: OffersType): JSX.Element {
-  const ratingPercentage: number = (rating / 6) * 100;
+function OfferScreen(): JSX.Element {
+  const { id } = useParams();
+  let dataIndex = 0;
+  if (id) {
+    const parsedIndex = parseInt(id, 10);
+    if (!isNaN(parsedIndex) && parsedIndex >= 0 && parsedIndex < offersData.length) {
+      dataIndex = parsedIndex;
+    }
+  }
+  const data = offersData[dataIndex];
+
+  const ratingPercentage: number = (data.rating / 6) * 100;
 
   return (
     <div className='page'>
@@ -15,17 +26,17 @@ function OfferScreen({images, title, price, goods, id, isPremium, rating, type, 
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {images.map((item) => <ImageOffer src={item} key={id} />)}
+              {data.images.map((item) => <ImageOffer src={item} key={id} />)}
             </div>
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
               <div className="offer__mark">
-                <span>{isPremium ? 'Premium' : ''}</span>
+                <span>{data.isPremium ? 'Premium' : ''}</span>
               </div>
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
-                  {title}
+                  {data.title}
                 </h1>
                 <button className="offer__bookmark-button button" type="button">
                   <svg className="offer__bookmark-icon" width="31" height="33">
@@ -39,27 +50,27 @@ function OfferScreen({images, title, price, goods, id, isPremium, rating, type, 
                   <span style={{ width: `${ratingPercentage}%` }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">{rating}</span>
+                <span className="offer__rating-value rating__value">{data.rating}</span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {type.charAt(0).toUpperCase() + type.slice(1)}
+                  {data.type.charAt(0).toUpperCase() + data.type.slice(1)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {bedrooms} Bedrooms
+                  {data.bedrooms} Bedrooms
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {maxAdults} adults
+                  Max {data.maxAdults} adults
                 </li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">&euro;{price}</b>
+                <b className="offer__price-value">&euro;{data.price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {goods.map((item) => <InsideOffers insideOffer={item} key={id}/>)}
+                  {data.goods.map((item) => <InsideOffers insideOffer={item} key={id}/>)}
                 </ul>
               </div>
               <div className="offer__host">
@@ -68,25 +79,22 @@ function OfferScreen({images, title, price, goods, id, isPremium, rating, type, 
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
                     <img
                       className="offer__avatar user__avatar"
-                      src={host.avatarUrl}
+                      src={data.host.avatarUrl}
                       width="74"
                       height="74"
                       alt="Host avatar"
                     />
                   </div>
                   <span className="offer__user-name">
-                    {host.name}
+                    {data.host.name}
                   </span>
                   <span className="offer__user-status">
-                    {host.isPro}
+                    {data.host.isPro}
                   </span>
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                  </p>
-                  <p className="offer__text">
-                      An independent House, strategically located between Rebrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
+                    {data.description}
                   </p>
                 </div>
               </div>
@@ -114,7 +122,7 @@ function OfferScreen({images, title, price, goods, id, isPremium, rating, type, 
                         </div>
                       </div>
                       <p className="reviews__text">
-                          A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
+                        A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
                       </p>
                       <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
                     </div>
@@ -130,8 +138,8 @@ function OfferScreen({images, title, price, goods, id, isPremium, rating, type, 
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <CardOffer src={previewImage} price={price} title={title}/>
-              <CardOffer src={previewImage} price={price} title={title}/>
+              <CardOffer src={data.previewImage} price={data.price} title={data.title}/>
+              <CardOffer src={data.previewImage} price={data.price} title={data.title}/>
             </div>
           </section>
         </div>
