@@ -6,7 +6,7 @@ export enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offers/:id'
+  Offer = '/offers'
 }
 
 export enum AuthorizationStatus {
@@ -14,3 +14,5 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export const MIN_COMMENT_LENGTH = 50;

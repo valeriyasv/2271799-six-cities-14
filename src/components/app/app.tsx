@@ -7,20 +7,19 @@ import FavoritesScreen from '../../pages/favorites/favorites-screen';
 import OfferScreen from '../../pages/offer/offer-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import { OffersCount } from '../../types/CommonTypes.type';
-import { Cities } from '../../types/CommonTypes.type';
-import { Offer } from '../../types/Offer.type';
-import { OffersType } from '../../types/Offers.type';
+import { OffersCount, Cities } from '../../types/common';
+import { OffersType } from '../../types/offers';
 
 
 type AppScreenProps = {
   offersCount: OffersCount;
   cities: Cities;
   offers: OffersType[];
-  offer: Offer;
+  favorites: OffersType[];
+  offersNearby: OffersType[];
 }
 
-function App({offersCount, cities, offers, offer}: AppScreenProps): JSX.Element {
+function App({offersCount, cities, offers, favorites, offersNearby}: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -29,25 +28,12 @@ function App({offersCount, cities, offers, offer}: AppScreenProps): JSX.Element 
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.Auth} >
-              <FavoritesScreen />
+              <FavoritesScreen favorites={favorites}/>
             </PrivateRoute>
           }
           />
-          <Route path={AppRoute.Offer} element={
-            <OfferScreen
-              images={offer.images}
-              title={offer.title}
-              price={offer.price}
-              goods={offer.goods}
-              id={offer.id}
-              isPremium={offer.isPremium}
-              rating={offer.rating}
-              type={offer.type}
-              bedrooms={offer.bedrooms}
-              maxAdults={offer.maxAdults}
-              host={offer.host}
-              previewImage={offer.previewImage}
-            />
+          <Route path={`${AppRoute.Offer}/:id`} element={
+            <OfferScreen offersNearby={offersNearby}/>
           }
           />
           <Route path='*' element={<NotFoundScreen />} />
