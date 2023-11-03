@@ -1,18 +1,28 @@
 import ImageOffer from '../../components/offers/image-offer/image-offer';
 import InsideOffers from '../../components/offers/inside-offer/inside-offer';
-import CardOffer from '../../components/offers/card-offer/card-offer';
 import Header from '../../components/header/header';
 import ReviewForm from '../../components/review-form/review-form';
 import { useParams } from 'react-router-dom';
 import { offersData } from '../../mocks/offers';
+import ListOffers from '../../components/offers/list-offers/list-offers';
+import { OffersType } from '../../types/offers';
+import { Navigate } from 'react-router-dom';
 
-function OfferScreen(): JSX.Element {
+type OffersProps = {
+  offersNearby: OffersType[];
+}
+
+function OfferScreen({offersNearby}: OffersProps): JSX.Element {
   const { id } = useParams();
   let dataIndex = 0;
+
   if (id) {
     const parsedIndex = parseInt(id, 10);
-    if (!isNaN(parsedIndex) && parsedIndex >= 0 && parsedIndex < offersData.length) {
+
+    if (parsedIndex < offersData.length) {
       dataIndex = parsedIndex;
+    } else {
+      return <Navigate to="not-found-screen" />;
     }
   }
   const data = offersData[dataIndex];
@@ -138,8 +148,7 @@ function OfferScreen(): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <CardOffer src={data.previewImage} price={data.price} title={data.title}/>
-              <CardOffer src={data.previewImage} price={data.price} title={data.title}/>
+              <ListOffers offers={offersNearby} />
             </div>
           </section>
         </div>

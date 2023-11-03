@@ -1,8 +1,8 @@
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import {Helmet} from 'react-helmet-async';
-import CardOffer from '../../components/offers/card-offer/card-offer';
 import { OffersType } from '../../types/offers';
+import ListOffers from '../../components/offers/list-offers/list-offers';
 
 type FavoritesProps = {
   favorites: OffersType[];
@@ -31,9 +31,7 @@ function FavoritesScreen({favorites}: FavoritesProps): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  {favorites.map((item) => (
-                    <CardOffer key={item.id} src={item.previewImage} price={item.price} title={item.title} id={item.id} block={'favorites'} />
-                  ))}
+                  <ListOffers offers={favorites} />
                 </div>
               </li>
 
@@ -46,9 +44,7 @@ function FavoritesScreen({favorites}: FavoritesProps): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  {favorites.map((item) => (
-                    <CardOffer key={item.id} src={item.previewImage} price={item.price} title={item.title} id={item.id} block={'favorites'} />
-                  ))}
+                  <ListOffers offers={favorites} />
                 </div>
               </li>
             </ul>

@@ -22,15 +22,13 @@ function CardOffer({src, price, title, id, block}: CardOfferProps): JSX.Element 
         <span>Premium</span>
       </div>
       <div className='cities__image-wrapper place-card__image-wrapper'>
-        <a href='#'>
-          <img
-            className='place-card__image'
-            src={src}
-            width='260'
-            height='200'
-            alt='Place image'
-          />
-        </a>
+        <img
+          className='place-card__image'
+          src={src}
+          width='260'
+          height='200'
+          alt='Place image'
+        />
       </div>
       <div className='place-card__info'>
         <div className='place-card__price-wrapper'>
