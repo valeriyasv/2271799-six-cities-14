@@ -5,7 +5,7 @@ type ListOffersProps = {
   offers: OffersType[];
 }
 
-function ListOffers({ offers }: ListOffersProps): JSX.Element {
+function ListOffers({ offers}: ListOffersProps): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (

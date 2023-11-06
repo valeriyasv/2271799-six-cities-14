@@ -7,12 +7,14 @@ import { offersData } from '../../mocks/offers';
 import ListOffers from '../../components/offers/list-offers/list-offers';
 import { OffersType } from '../../types/offers';
 import { Navigate } from 'react-router-dom';
+import Map from '../../components/map/map';
 
 type OffersProps = {
   offersNearby: OffersType[];
 }
 
 function OfferScreen({offersNearby}: OffersProps): JSX.Element {
+
   const { id } = useParams();
   let dataIndex = 0;
 
@@ -142,11 +144,11 @@ function OfferScreen({offersNearby}: OffersProps): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="offer__map map"></section>
+          <Map block={'offer'} location={data.location} offers={offersNearby} specialOfferId={null} />
         </section>
         <div className="container">
           <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
+            <h2 className="near-places__title">Other places in the neighborhood</h2>
             <div className="near-places__list places__list">
               <ListOffers offers={offersNearby} />
             </div>

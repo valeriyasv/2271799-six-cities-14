@@ -1,10 +1,9 @@
 import { OffersType } from '../types/offers';
+import { CityMapData } from '../const';
 
 export const favoritesData: OffersType[] = [
   {
-    city: {
-      name: 'Dusseldorf',
-    },
+    city: CityMapData.Amsterdam,
     previewImage: 'https://14.react.pages.academy/static/offer/3.jpg',
     images: [
       'https://14.react.pages.academy/static/offer/16.jpg',
@@ -41,12 +40,15 @@ export const favoritesData: OffersType[] = [
       avatarUrl: 'img/avatar-angelina.jpg'
     },
     description: 'A new spacious villa, one floor. All commodities, jacuzzi and beautiful scenery. Ideal for families or friends.',
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8
+    },
     id: 0
   },
   {
-    city: {
-      name: 'Amsterdam',
-    },
+    city: CityMapData.Brussels,
     previewImage: 'https://14.react.pages.academy/static/offer/14.jpg',
     images: [
       'https://14.react.pages.academy/static/offer/8.jpg',
@@ -84,12 +86,15 @@ export const favoritesData: OffersType[] = [
       avatarUrl: 'img/avatar-angelina.jpg'
     },
     description: 'This is a place for dreamers to reset, reflect, and create. Designed with a \'slow\' pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8
+    },
     id: 1
   },
   {
-    city: {
-      name: 'Brussels',
-    },
+    city: CityMapData.Cologne,
     previewImage: 'https://14.react.pages.academy/static/offer/3.jpg',
     images: [
       'https://14.react.pages.academy/static/offer/9.jpg',
@@ -135,6 +140,11 @@ export const favoritesData: OffersType[] = [
       avatarUrl: 'img/avatar-angelina.jpg'
     },
     description: 'I am happy to welcome you to my apartment in the city center! Three words: location, cosy and chic!',
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8
+    },
     id: 2
   }
 ];
