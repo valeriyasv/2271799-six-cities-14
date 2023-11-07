@@ -19,5 +19,6 @@ export type OffersType = {
   goods: string[];
   host: Host;
   description?: string;
+  location: LocationType;
   id: number;
 };

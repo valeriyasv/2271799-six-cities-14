@@ -8,4 +8,5 @@ export type CardOfferProps = {
   title: string;
   id?: number;
   block?: string;
+  onCardHover?: void;
 };

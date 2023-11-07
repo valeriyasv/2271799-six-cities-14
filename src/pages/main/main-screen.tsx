@@ -3,14 +3,17 @@ import Header from '../../components/header/header';
 import Locations from '../../components/locations/locations';
 import { Helmet } from 'react-helmet-async';
 import { OffersType } from '../../types/offers';
+import Map from '../../components/map/map';
+import { CityMapData } from '../../const';
 
 type MainScreenProps = {
-  offersCount: number;
   cities: string[];
   offers: OffersType[];
 }
 
-function MainScreen({offersCount, cities, offers}: MainScreenProps): JSX.Element {
+function MainScreen({ cities, offers}: MainScreenProps): JSX.Element {
+  const activeCity = CityMapData.Amsterdam;
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -28,7 +31,7 @@ function MainScreen({offersCount, cities, offers}: MainScreenProps): JSX.Element
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in {activeCity.name}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -47,7 +50,7 @@ function MainScreen({offersCount, cities, offers}: MainScreenProps): JSX.Element
               <ListOffers offers={offers} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map offers={offers} block='cities' location={activeCity.location} specialOfferId={null}/>
             </div>
           </div>
         </div>
