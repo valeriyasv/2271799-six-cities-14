@@ -62,11 +62,11 @@ export const CityMapData = {
   },
 };
 
+export const TILE_LAYER =
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+export const COPYRIGHT =
+'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
+export const MAX_REVIEWS_COUNT = 10;
 export const MIN_COMMENT_LENGTH = 50;
 export const MAX_COMMENT_LENGTH = 300;
-
-export const TILE_LAYER =
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-export const COPYRIGHT =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
