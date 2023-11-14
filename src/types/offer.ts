@@ -1,19 +1,10 @@
 import { Host } from './host';
-import { LocationType } from './location';
+import { OfferPreviewType } from './offer-preview';
 
-export type Offer = {
-  images: string[];
-  title: string;
-  isFavorite?: boolean;
-  isPremium: boolean;
-  location?: LocationType;
-  rating: number;
-  type: string;
+export type Offer = OfferPreviewType & {
   bedrooms: number;
-  maxAdults: number;
-  previewImage: string;
-  price: number;
-  goods: string[];
+  description: string;
   host: Host;
-  id: number;
+  images: string[];
+  maxAdults: number;
 };
