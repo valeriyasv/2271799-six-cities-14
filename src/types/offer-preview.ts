@@ -1,15 +1,15 @@
-import { CityType } from './city';
+// import { CityType } from './city';
 import { LocationType } from './location';
 
 export type OfferPreviewType = {
-  city: CityType;
   goods: string[];
   id: string;
-  isFavorite: boolean;
+  isFavorite?: boolean;
+  isPremium?: boolean;
   location: LocationType;
-  previewImage: string;
-  price: number;
+  previewImage?: string;
+  price?: number;
   rating: number;
-  title: string;
+  title?: string;
   type: string;
 };

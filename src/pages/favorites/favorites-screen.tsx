@@ -1,14 +1,30 @@
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import {Helmet} from 'react-helmet-async';
-import { OffersType } from '../../types/offers';
 import ListOffers from '../../components/offers/list-offers/list-offers';
 
-type FavoritesProps = {
-  favorites: OffersType[];
-}
+// import { OfferPreviewType } from '../../types/offer-preview';
+import { useAppSelector } from '../../hooks';
 
-function FavoritesScreen({favorites}: FavoritesProps): JSX.Element {
+
+// function getFavoritesByCity(favorites: OfferPreviewType[]) {
+//   return favorites.reduce<{ [key: string]: OfferPreviewType[] }>((acc, curr) => {
+//     const city = curr.city.name;
+
+//     if (!(city in acc)) {
+//       acc[city] = [];
+//     }
+//     acc[city].push(curr);
+
+//     return acc;
+//   }, {});
+// }
+
+function FavoritesScreen(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
+  // const favorites = useAppSelector((state) => state.favorites);
+  // const favoritesByCity = getFavoritesByCity(favorites);
+
   return (
     <div className="page">
       <Helmet>
@@ -31,20 +47,7 @@ function FavoritesScreen({favorites}: FavoritesProps): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <ListOffers offers={favorites} />
-                </div>
-              </li>
-
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="#">
-                      <span>Cologne</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  <ListOffers offers={favorites} />
+                  <ListOffers offers={offers} block={'favorites'}/>
                 </div>
               </li>
             </ul>

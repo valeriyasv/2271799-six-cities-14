@@ -19,7 +19,7 @@ type MapPropsType = {
   block: string;
   location: LocationType;
   offers: OffersType[];
-  specialOfferId: number | null;
+  specialOfferId: string | null;
 }
 
 const defaultIconConfig: IconConfigType = {

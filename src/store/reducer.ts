@@ -6,6 +6,7 @@ import { offersData } from '../mocks/offers';
 import { reviewsData } from '../mocks/reviews';
 import {createReducer} from '@reduxjs/toolkit';
 import { OfferPreviewType } from '../types/offer-preview';
+import { OffersType } from '../types/offers';
 import
 {
   fetchOffers,
@@ -19,12 +20,12 @@ import
   from './actions';
 
 const initialState: {
-  offers: OfferPreviewType[];
-  nearPlaces: OfferPreviewType[];
+  offers: OffersType[];
+  nearPlaces: OffersType[];
   reviews: ReviewType[];
   offer: Offer | null;
   favorites: OfferPreviewType[];
-  activeCity: CityType;
+  activeCity: CityType | undefined;
 } = {
   offers: offersData,
   nearPlaces: [],
