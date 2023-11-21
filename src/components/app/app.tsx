@@ -7,16 +7,6 @@ import FavoritesScreen from '../../pages/favorites/favorites-screen';
 import OfferScreen from '../../pages/offer/offer-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-// import { Cities } from '../../types/common';
-// import { OffersType } from '../../types/offers';
-
-
-// type AppScreenProps = {
-//   cities: Cities;
-//   offers: OffersType[];
-//   favorites: OffersType[];
-//   offersNearby: OffersType[];
-// }
 
 function App(): JSX.Element {
   return (
