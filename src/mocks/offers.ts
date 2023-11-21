@@ -3,9 +3,7 @@ import { CityMapData } from '../const';
 
 
 export const offerData: OffersType = {
-  city: {
-    name: 'Dusseldorf'
-  },
+  city: CityMapData.Amsterdam,
   previewImage: 'https://14.react.pages.academy/static/offer/3.jpg',
   images: [
     'https://14.react.pages.academy/static/offer/16.jpg',
