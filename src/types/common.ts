@@ -6,7 +6,7 @@ export type CardOfferProps = {
   src: string;
   price: number;
   title: string;
-  id?: number;
+  id?: string;
   block?: string;
   onCardHover?: void;
 };

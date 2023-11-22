@@ -45,7 +45,7 @@ export const favoritesData: OffersType[] = [
       longitude: 4.673877537499948,
       zoom: 8
     },
-    id: 0
+    id: '0'
   },
   {
     city: CityMapData.Brussels,
@@ -91,7 +91,7 @@ export const favoritesData: OffersType[] = [
       longitude: 4.673877537499948,
       zoom: 8
     },
-    id: 1
+    id: '1'
   },
   {
     city: CityMapData.Cologne,
@@ -145,6 +145,6 @@ export const favoritesData: OffersType[] = [
       longitude: 4.673877537499948,
       zoom: 8
     },
-    id: 2
+    id: '2'
   }
 ];

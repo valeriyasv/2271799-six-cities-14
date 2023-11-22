@@ -1,125 +1,44 @@
-import ImageOffer from '../../components/offers/image-offer/image-offer';
-import InsideOffers from '../../components/offers/inside-offer/inside-offer';
 import Header from '../../components/header/header';
 import { useParams } from 'react-router-dom';
-import { offersData } from '../../mocks/offers';
 import ListOffers from '../../components/offers/list-offers/list-offers';
-import { OffersType } from '../../types/offers';
-import { Navigate } from 'react-router-dom';
-import Map from '../../components/map/map';
-import ReviewList from '../../components/review/review-list';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { dropOffer, fetchNearPlaces, fetchOffer } from '../../store/actions';
+import OfferDetails from '../../components/offers/offers-details/offers-details';
+import { offersData } from '../../mocks/offers';
+import { MAX_NEAR_PLACES_COUNT } from '../../const';
 
-type OffersProps = {
-  offersNearby: OffersType[];
-}
-
-function OfferScreen({offersNearby}: OffersProps): JSX.Element {
+function OfferScreen(): JSX.Element {
 
   const { id } = useParams();
-  let dataIndex = 0;
+  const dispatch = useAppDispatch();
+  const offer = useAppSelector((state) => state.offer);
+  const nearPlaces = useAppSelector((state) => state.nearPlaces);
+  const nearPlacesToRender = nearPlaces.slice(0, MAX_NEAR_PLACES_COUNT);
 
-  if (id) {
-    const parsedIndex = parseInt(id, 10);
-
-    if (parsedIndex < offersData.length) {
-      dataIndex = parsedIndex;
-    } else {
-      return <Navigate to="not-found-screen" />;
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOffer(id));
+      dispatch(fetchNearPlaces(id));
     }
-  }
-  const data = offersData[dataIndex];
 
-  const ratingPercentage: number = (data.rating / 6) * 100;
+    return () => {
+      dispatch(dropOffer());
+    };
+  }, [id, dispatch]);
 
   return (
     <div className='page'>
       <Header />
       <main className="page__main page__main--offer">
         <section className="offer">
-          <div className="offer__gallery-container container">
-            <div className="offer__gallery">
-              {data.images.map((item) => <ImageOffer src={item} key={id} />)}
-            </div>
-          </div>
-          <div className="offer__container container">
-            <div className="offer__wrapper">
-              <div className="offer__mark">
-                <span>{data.isPremium ? 'Premium' : ''}</span>
-              </div>
-              <div className="offer__name-wrapper">
-                <h1 className="offer__name">
-                  {data.title}
-                </h1>
-                <button className="offer__bookmark-button button" type="button">
-                  <svg className="offer__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
-              </div>
-              <div className="offer__rating rating">
-                <div className="offer__stars rating__stars">
-                  <span style={{ width: `${ratingPercentage}%` }}></span>
-                  <span className="visually-hidden">Rating</span>
-                </div>
-                <span className="offer__rating-value rating__value">{data.rating}</span>
-              </div>
-              <ul className="offer__features">
-                <li className="offer__feature offer__feature--entire">
-                  {data.type.charAt(0).toUpperCase() + data.type.slice(1)}
-                </li>
-                <li className="offer__feature offer__feature--bedrooms">
-                  {data.bedrooms} Bedrooms
-                </li>
-                <li className="offer__feature offer__feature--adults">
-                  Max {data.maxAdults} adults
-                </li>
-              </ul>
-              <div className="offer__price">
-                <b className="offer__price-value">&euro;{data.price}</b>
-                <span className="offer__price-text">&nbsp;night</span>
-              </div>
-              <div className="offer__inside">
-                <h2 className="offer__inside-title">What&apos;s inside</h2>
-                <ul className="offer__inside-list">
-                  {data.goods.map((item) => <InsideOffers insideOffer={item} key={id}/>)}
-                </ul>
-              </div>
-              <div className="offer__host">
-                <h2 className="offer__host-title">Meet the host</h2>
-                <div className="offer__host-user user">
-                  <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                    <img
-                      className="offer__avatar user__avatar"
-                      src={data.host.avatarUrl}
-                      width="74"
-                      height="74"
-                      alt="Host avatar"
-                    />
-                  </div>
-                  <span className="offer__user-name">
-                    {data.host.name}
-                  </span>
-                  <span className="offer__user-status">
-                    {data.host.isPro}
-                  </span>
-                </div>
-                <div className="offer__description">
-                  <p className="offer__text">
-                    {data.description}
-                  </p>
-                </div>
-              </div>
-              <ReviewList />
-            </div>
-          </div>
-          <Map block={'offer'} location={data.location} offers={offersNearby} specialOfferId={null} />
+          <OfferDetails offer={offer} offers={offersData} />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighborhood</h2>
             <div className="near-places__list places__list">
-              <ListOffers offers={offersNearby} />
+              <ListOffers offers={nearPlacesToRender} block={'near-places'}/>
             </div>
           </section>
         </div>
