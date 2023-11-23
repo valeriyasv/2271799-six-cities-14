@@ -1,16 +1,18 @@
-const AUTH_TOKEN_KEY_NAME = 'guess-melody-token';
+import { TokenType } from '../types/token';
 
-export type Token = string;
+const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
 
-export const getToken = (): Token => {
+function getToken() {
   const token = localStorage.getItem(AUTH_TOKEN_KEY_NAME);
   return token ?? '';
-};
+}
 
-export const saveToken = (token: Token): void => {
+function saveToken(token: TokenType) {
   localStorage.setItem(AUTH_TOKEN_KEY_NAME, token);
-};
+}
 
-export const dropToken = (): void => {
+function dropToken() {
   localStorage.removeItem(AUTH_TOKEN_KEY_NAME);
-};
+}
+
+export {getToken, saveToken, dropToken};
