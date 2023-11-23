@@ -80,3 +80,10 @@ export const MAX_REVIEWS_COUNT = 10;
 export const MIN_COMMENT_LENGTH = 50;
 export const MAX_COMMENT_LENGTH = 300;
 export const MAX_NEAR_PLACES_COUNT = 3;
+
+export const SortingMap = {
+  Popular: 'Popular',
+  LowToHigh: 'Price: low to high',
+  HighToLow: 'Price: high to low',
+  TopRated: 'Top rated first',
+} as const;

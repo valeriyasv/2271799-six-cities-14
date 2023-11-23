@@ -7,7 +7,7 @@ export type OffersType = {
   previewImage: string;
   images: string[];
   title: string;
-  isFavorite?: boolean;
+  isFavorite: boolean;
   isPremium: boolean;
   rating: number;
   type: string;
