@@ -10,9 +10,9 @@ import
 {
   fetchOffers,
   fetchReviews,
-  login,
-  logout,
-  checkAuth,
+  // login,
+  // logout,
+  // checkAuth,
   postReviews,
   fetchFavorites,
   fetchNearPlaces,
@@ -34,7 +34,7 @@ const initialState: {
   offerFetchingStatus: RequestStatus;
   favorites: OfferPreviewType[];
   favoritesFetchingStatus: RequestStatus;
-  activeCity: CityType | undefined;
+  activeCity: CityType;
   authorizationStatus: AuthorizationStatus;
   user: UserType | null;
   loginSendingStatus: RequestStatus;
@@ -115,34 +115,34 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchFavorites.rejected, (state) => {
       state.favoritesFetchingStatus = RequestStatus.Error;
-    })
-    .addCase(checkAuth.pending, (state) => {
-      state.user = null;
-      state.authorizationStatus = AuthorizationStatus.Unknown;
-    })
-    .addCase(checkAuth.fulfilled, (state, action) => {
-      state.user = action.payload;
-      state.authorizationStatus = AuthorizationStatus.Auth;
-    })
-    .addCase(checkAuth.rejected, (state) => {
-      state.user = null;
-      state.authorizationStatus = AuthorizationStatus.NoAuth;
-    })
-    .addCase(login.pending, (state) => {
-      state.loginSendingStatus = RequestStatus.Pending;
-    })
-    .addCase(login.fulfilled, (state, action) => {
-      state.loginSendingStatus = RequestStatus.Success;
-      state.user = action.payload;
-      state.authorizationStatus = AuthorizationStatus.Auth;
-    })
-    .addCase(login.rejected, (state) => {
-      state.loginSendingStatus = RequestStatus.Error;
-      state.user = null;
-      state.authorizationStatus = AuthorizationStatus.NoAuth;
-    })
-    .addCase(logout.pending, (state) => {
-      state.user = null;
-      state.authorizationStatus = AuthorizationStatus.NoAuth;
     });
+  // .addCase(checkAuth.pending, (state) => {
+  //   state.user = null;
+  //   state.authorizationStatus = AuthorizationStatus.Unknown;
+  // })
+  // .addCase(checkAuth.fulfilled, (state, action) => {
+  //   state.user = action.payload;
+  //   state.authorizationStatus = AuthorizationStatus.Auth;
+  // })
+  // .addCase(checkAuth.rejected, (state) => {
+  //   state.user = null;
+  //   state.authorizationStatus = AuthorizationStatus.NoAuth;
+  // })
+  // .addCase(login.pending, (state) => {
+  //   state.loginSendingStatus = RequestStatus.Pending;
+  // })
+  // .addCase(login.fulfilled, (state, action) => {
+  //   state.loginSendingStatus = RequestStatus.Success;
+  //   state.user = action.payload;
+  //   state.authorizationStatus = AuthorizationStatus.Auth;
+  // })
+  // .addCase(login.rejected, (state) => {
+  //   state.loginSendingStatus = RequestStatus.Error;
+  //   state.user = null;
+  //   state.authorizationStatus = AuthorizationStatus.NoAuth;
+  // })
+  // .addCase(logout.pending, (state) => {
+  //   state.user = null;
+  //   state.authorizationStatus = AuthorizationStatus.NoAuth;
+  // });
 });

@@ -1,4 +1,4 @@
-import axios, {AxiosInstance, AxiosRequestConfig, AxiosError} from 'axios';
+import axios, {AxiosInstance, AxiosError} from 'axios';
 import {getToken} from './token';
 import { StatusCodes } from 'http-status-codes';
 import { AppRoute } from '../const';
@@ -13,7 +13,7 @@ export const createAPI = (): AxiosInstance => {
     timeout: REQUEST_TIMEOUT,
   });
 
-  api.interceptors.request.use((config: AxiosRequestConfig) => {
+  api.interceptors.request.use((config) => {
     const token = getToken();
 
     if (token && config.headers) {

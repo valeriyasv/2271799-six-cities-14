@@ -2,21 +2,30 @@ import ListOffers from '../../components/offers/list-offers/list-offers';
 import Header from '../../components/header/header';
 import Locations from '../../components/locations/locations';
 import { Helmet } from 'react-helmet-async';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import Map from '../../components/map/map';
 import { CityMapData } from '../../const';
 import Sorting from '../../components/sorting/sorting';
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import { SortingType } from '../../types/sorting';
 import { sorting } from '../../utils';
+import { fetchOffers } from '../../store/api-action';
 
 function MainScreen(): JSX.Element {
-  const activeCity = CityMapData.Amsterdam;
+  const dispatch = useAppDispatch();
+  const fetchingStatus = useAppSelector((state) => state.offerFetchingStatus);
+  const activeCity = useAppSelector((state) => state.activeCity);
   const offers = useAppSelector((state) => state.offers);
+  console.log(offers,'jj')
+  const offerByCity = offers.filter((offer) => offer.city?.name === activeCity.name);
   const [activeSorting, setActiveSorting] = useState<SortingType>('Popular');
   function handleSortingChange(type: SortingType) {
     setActiveSorting(type);
   }
+
+  useEffect(() => {
+    dispatch(fetchOffers());
+  }, [dispatch]);
 
   return (
     <div className="page page--gray page--main">
