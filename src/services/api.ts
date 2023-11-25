@@ -1,5 +1,8 @@
-import axios, {AxiosInstance, AxiosRequestConfig} from 'axios';
+import axios, {AxiosInstance, AxiosRequestConfig, AxiosError} from 'axios';
 import {getToken} from './token';
+import { StatusCodes } from 'http-status-codes';
+import { AppRoute } from '../const';
+import { browserHistory } from '../const';
 
 const BACKEND_URL = 'https://14.design.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
@@ -10,16 +13,25 @@ export const createAPI = (): AxiosInstance => {
     timeout: REQUEST_TIMEOUT,
   });
 
-  api.interceptors.request.use(
-    (config: AxiosRequestConfig) => {
-      const token = getToken();
+  api.interceptors.request.use((config: AxiosRequestConfig) => {
+    const token = getToken();
 
-      if (token && config.headers) {
-        config.headers['x-token'] = token;
+    if (token && config.headers) {
+      config.headers['x-token'] = token;
+    }
+
+    return config;
+  });
+
+  api.interceptors.response.use(
+    (response) => response,
+    (error: AxiosError<{error: string}>) => {
+      if (error.response?.status === StatusCodes.NOT_FOUND) {
+        browserHistory.push(AppRoute.Main);
       }
 
-      return config;
-    });
-
+      throw error;
+    }
+  );
   return api;
 };
