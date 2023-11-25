@@ -39,6 +39,21 @@ export const fetchReviews = createAsyncThunk<ReviewType[], Offer['id'], ExtraTyp
   }
 );
 
+export const postReviews = createAsyncThunk<
+  ReviewType,
+  { reviewData: ReviewType; offerId: Offer['id'] },
+  ExtraType
+>(
+  `${NameSpace.Reviews}/postReview`,
+  async ({reviewData, offerId}, {extra: api}) => {
+    const {data} = await api.post<ReviewType>(`${APIRoute.Reviews}/${offerId}`,
+      reviewData
+    );
+
+    return data;
+  }
+);
+
 export const fetchNearPlaces = createAsyncThunk<OfferPreviewType[], Offer['id'], ExtraType>(
   `${NameSpace.NearPlaces}/fetchNearPlaces`,
   async (offerId, {extra: api}) => {

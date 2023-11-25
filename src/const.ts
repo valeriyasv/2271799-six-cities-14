@@ -97,6 +97,12 @@ export const SortingMap = {
   TopRated: 'Top rated first',
 } as const;
 
+export enum RequestStatus {
+  Idle = 'IDLE',
+  Pending = 'PENDING',
+  Success = 'SUCCESS',
+  Error = 'ERROR',
+}
 
 export const browserHistory = createBrowserHistory();
 
