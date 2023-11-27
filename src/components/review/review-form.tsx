@@ -1,10 +1,21 @@
-import React, { ChangeEvent, useState } from 'react';
-import { MIN_COMMENT_LENGTH } from '../../const';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { MIN_COMMENT_LENGTH, RequestStatus } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { postReviews } from '../../store/api-action';
+import { Offer } from '../../types/offer';
+import { fetchReviews } from '../../store/actions';
 
-function ReviewForm(): JSX.Element {
+type ReviewsTypeProps = {
+  offerId: Offer['id'];
+}
+
+function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const sendingStatus = useAppSelector((state) => state.reviewsSendingStatus);
   const [comment, setComment] = useState<string>('');
   const [rating, setRating] = useState<number | string>('');
   const isValid = comment.length >= MIN_COMMENT_LENGTH && rating !== '';
+  // const isSending = sendingStatus === RequestStatus.Pending;
 
   function handleCommentChange(evt: ChangeEvent<HTMLTextAreaElement>) {
     setComment(evt.target.value);
@@ -14,8 +25,37 @@ function ReviewForm(): JSX.Element {
     setRating(evt.target.value);
   }
 
+  function handleFormSubmit(evt: FormEvent<HTMLFormElement>) {
+    evt.preventDefault();
+    dispatch(
+      postReviews({
+        reviewData: {
+          comment,
+          rating: +rating,
+          id: 0,
+          user: {
+            id: 0,
+            name: '',
+            isPro: false,
+            avatarUrl: ''
+          },
+          date: ''
+        },
+        offerId,
+      })
+    );
+  }
+
+  useEffect(() => {
+    if(sendingStatus === RequestStatus.Success) {
+      setComment('');
+      setRating('');
+      dispatch(fetchReviews);
+    }
+  }, [sendingStatus, dispatch]);
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {['5', '4', '3', '2', '1'].map((value) => (

@@ -4,13 +4,16 @@ import InsideOffers from '../inside-offer/inside-offer';
 import Map from '../../map/map';
 import { Offer } from '../../../types/offer';
 import { OffersType } from '../../../types/offers';
+import { ReviewType } from '../../../types/review';
 
 type OfferTypeProps = {
   offer: Offer | null;
   offers: OffersType[];
+  reviews: ReviewType[];
+  offerId: Offer['id'];
 }
 
-function OfferDetails ({offer, offers}: OfferTypeProps) {
+function OfferDetails ({offer, offers, reviews, offerId}: OfferTypeProps) {
   if(!offer) {
     return null;
   }
@@ -92,7 +95,7 @@ function OfferDetails ({offer, offers}: OfferTypeProps) {
               </p>
             </div>
           </div>
-          <ReviewList />
+          <ReviewList reviews={reviews} offerId={offerId}/>
         </div>
       </div>
       <Map block={'offer'} location={offer.location} offers={offers} specialOfferId={null} />

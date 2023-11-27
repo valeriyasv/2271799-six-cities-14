@@ -1,8 +1,7 @@
 import axios, {AxiosInstance, AxiosError} from 'axios';
 import {getToken} from './token';
 import { StatusCodes } from 'http-status-codes';
-import { AppRoute } from '../const';
-import { browserHistory } from '../const';
+import { AppRoute, browserHistory } from '../const';
 
 const BACKEND_URL = 'https://14.design.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
