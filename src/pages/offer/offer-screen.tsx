@@ -34,7 +34,7 @@ function OfferScreen(): JSX.Element {
       <Header />
       <main className="page__main page__main--offer">
         <section className="offer">
-          <OfferDetails offer={offer} offers={nearPlacesToRender} reviews={reviews} />
+          <OfferDetails offer={offer} offers={nearPlacesToRender} reviews={reviews} offerId={'id'} />
         </section>
         <div className="container">
           <section className="near-places places">
