@@ -1,3 +1,4 @@
+import { createBrowserHistory } from 'history';
 export enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -18,6 +19,14 @@ export enum NameSpace {
   Favorites = 'FAVORITES',
   Reviews = 'REVIEWS',
   User = 'USER',
+}
+
+export enum APIRoute {
+  Offers = '/offers',
+  Login = '/login',
+  Logout = '/logout',
+  Reviews = '/reviews',
+  NearPlaces = 'near_places',
 }
 
 export const CityMapData = {
@@ -87,3 +96,13 @@ export const SortingMap = {
   HighToLow: 'Price: high to low',
   TopRated: 'Top rated first',
 } as const;
+
+export enum RequestStatus {
+  Idle = 'IDLE',
+  Pending = 'PENDING',
+  Success = 'SUCCESS',
+  Error = 'ERROR',
+}
+
+export const browserHistory = createBrowserHistory();
+
