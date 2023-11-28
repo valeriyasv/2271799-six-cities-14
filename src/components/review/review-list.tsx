@@ -3,6 +3,8 @@ import ReviewItem from './review-item';
 import { MAX_REVIEWS_COUNT } from '../../const';
 import { ReviewType } from '../../types/review';
 import { Offer } from '../../types/offer';
+import { useAppSelector } from '../../hooks';
+import { AuthorizationStatus } from '../../const';
 
 type ReviewListPropsType = {
   reviews: ReviewType[];
@@ -10,6 +12,7 @@ type ReviewListPropsType = {
 }
 
 function ReviewList ({reviews, offerId}: ReviewListPropsType) {
+  const status = useAppSelector((state) => state.authorizationStatus);
   const reviewsRender = reviews.slice(0, MAX_REVIEWS_COUNT);
   const reviewsToRender = reviewsRender
     .sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime())
@@ -23,7 +26,7 @@ function ReviewList ({reviews, offerId}: ReviewListPropsType) {
           <ReviewItem key={item.id} review={item} />
         ))}
       </ul>
-      <ReviewForm offerId={offerId}/>
+      {status === AuthorizationStatus.Auth ? <ReviewForm offerId={offerId}/> : ''}
     </section>
   );
 }

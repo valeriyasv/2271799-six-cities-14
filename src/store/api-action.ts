@@ -4,9 +4,9 @@ import { Offer } from '../types/offer';
 import { APIRoute, NameSpace } from '../const';
 import { OfferPreviewType } from '../types/offer-preview';
 import { ReviewType } from '../types/review';
-// import { AuthType } from '../types/auth';
-// import { dropToken, saveToken } from '../services/token';
-// import { UserType } from '../types/user';
+import { AuthType } from '../types/auth';
+import { dropToken, saveToken } from '../services/token';
+import { UserType } from '../types/user';
 
 type ExtraType = {
   extra: AxiosInstance;
@@ -86,20 +86,20 @@ export const fetchFavorites = createAsyncThunk<OfferPreviewType[], undefined, Ex
 //   }
 // );
 
-// export const login = createAsyncThunk<AuthType,UserType, ExtraType>(
-//   `${NameSpace.User}/login`,
-//   async (loginData, {extra: api}) => {
-//     const {data} = await api.post<AuthType>(APIRoute.Login, loginData);
-//     saveToken(data.token);
+export const login = createAsyncThunk<AuthType,UserType, ExtraType>(
+  `${NameSpace.User}/login`,
+  async (loginData, {extra: api}) => {
+    const {data} = await api.post<AuthType>(APIRoute.Login, loginData);
+    saveToken(data.token);
 
-//     return data;
-//   }
-// );
+    return data;
+  }
+);
 
-// export const logout = createAsyncThunk<void, undefined, ExtraType>(
-//   `${NameSpace.User}/logout`,
-//   (_arg, {extra: api}) => {
-//     api.delete(APIRoute.Logout);
-//     dropToken();
-//   }
-// );
+export const logout = createAsyncThunk<void, undefined, ExtraType>(
+  `${NameSpace.User}/logout`,
+  (_arg, {extra: api}) => {
+    api.delete(APIRoute.Logout);
+    dropToken();
+  }
+);
