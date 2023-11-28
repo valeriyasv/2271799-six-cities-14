@@ -1,17 +1,25 @@
 import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
-import { useRef, FormEvent } from 'react';
-import { useAppDispatch } from '../../hooks';
+import { useRef, FormEvent, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../store/api-action';
 import { AppRoute } from '../../const';
+import { AuthorizationStatus } from '../../const';
 
 function LoginScreen(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      navigate(AppRoute.Main);
+    }
+  }, [authorizationStatus, navigate]);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
