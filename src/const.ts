@@ -80,6 +80,15 @@ export const CityMapData = {
   },
 };
 
+export enum CityList {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf',
+}
+
 export const TILE_LAYER =
 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 export const COPYRIGHT =

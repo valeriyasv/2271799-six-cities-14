@@ -1,12 +1,19 @@
+import { CardImageSizeType } from '../components/offers/card-offer/card-offer';
+import { OfferPreviewType } from './offer-preview';
+
 export type OffersCount = number;
 
 export type Cities = string[];
 
 export type CardOfferProps = {
-  src: string;
+  previewImage: string;
+  size: CardImageSizeType;
   price: number;
   title: string;
   id?: string;
   block?: string;
-  onCardHover?: void;
+  onCardHover?: (id: OfferPreviewType['id'] | null) => void;
+  type: string;
+  isHover: boolean;
+  isPremium: boolean;
 };

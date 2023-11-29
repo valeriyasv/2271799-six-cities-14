@@ -76,15 +76,15 @@ export const fetchFavorites = createAsyncThunk<OfferPreviewType[], undefined, Ex
   }
 );
 
-// export const checkAuth = createAsyncThunk<AuthType, UserType, ExtraType>(
-//   `${NameSpace.User}/login`,
-//   async (loginData, {extra: api}) => {
-//     const {data} = await api.post<AuthType>(APIRoute.Login, loginData);
-//     saveToken(data.token);
+export const checkAuth = createAsyncThunk<AuthType, UserType, ExtraType>(
+  `${NameSpace.User}/login`,
+  async (loginData, {extra: api}) => {
+    const {data} = await api.post<AuthType>(APIRoute.Login, loginData);
+    saveToken(data.token);
 
-//     return data;
-//   }
-// );
+    return data;
+  }
+);
 
 export const login = createAsyncThunk<AuthType,UserType, ExtraType>(
   `${NameSpace.User}/login`,

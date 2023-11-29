@@ -1,33 +1,38 @@
 import { Link } from 'react-router-dom';
 import { CardOfferProps } from '../../../types/common';
-import { useState } from 'react';
 
-function CardOffer({src, price, title, id, block}: CardOfferProps): JSX.Element {
-  const [active, setActive] = useState<boolean>(false);
+export type CardImageSizeType = 'small' | 'large';
 
+const sizeMap: Record<CardImageSizeType, {width: string; height: string}> = {
+  small: {width: '150', height: '110'},
+  large: {width: '260', height: '200'},
+};
+
+function CardOffer({previewImage, price, title, id, block, type, size = 'large',isPremium, isHover = false, onCardHover}: CardOfferProps): JSX.Element {
   const handleMouseEnter = () => {
-    setActive(true);
+    onCardHover?.('id');
   };
 
   const handleMouseLeave = () => {
-    setActive(false);
+    onCardHover?.(null);
   };
 
   return (
-    <article className={`${block}__card place-card ${active ? 'place-card--active' : ''}`}
+    <article className={`${block}__card place-card ${isHover ? 'place-card--active' : ''}}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className='place-card__mark'>
-        <span>Premium</span>
-      </div>
+      {isPremium ?
+        <div className='place-card__mark'>
+          <span>Premium</span>
+        </div>
+        : ''}
       <div className='cities__image-wrapper place-card__image-wrapper'>
         <img
           className='place-card__image'
-          src={src}
-          width='260'
-          height='200'
-          alt='Place image'
+          src={previewImage}
+          {...sizeMap[size]}
+          alt={title}
         />
       </div>
       <div className='place-card__info'>
@@ -54,7 +59,7 @@ function CardOffer({src, price, title, id, block}: CardOfferProps): JSX.Element 
             {title}
           </Link>
         </h2>
-        <p className='place-card__type'>Apartment</p>
+        <p className='place-card__type'>{type}</p>
       </div>
     </article>
   );

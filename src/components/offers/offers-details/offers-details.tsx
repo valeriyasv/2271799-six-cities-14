@@ -28,9 +28,11 @@ function OfferDetails ({offer, offers, reviews, offerId}: OfferTypeProps) {
       </div>
       <div className="offer__container container">
         <div className="offer__wrapper">
-          <div className="offer__mark">
-            <span>{offer.isPremium ? 'Premium' : ''}</span>
-          </div>
+          {offer.isPremium ?
+            <div className="offer__mark">
+              <span>Premium</span>
+            </div>
+            : ''}
           <div className="offer__name-wrapper">
             <h1 className="offer__name">
               {offer.title}
