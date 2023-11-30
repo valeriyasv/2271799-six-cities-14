@@ -1,32 +1,24 @@
 import ReviewForm from './review-form';
 import ReviewItem from './review-item';
-import { MAX_REVIEWS_COUNT } from '../../const';
-import { ReviewType } from '../../types/review';
 import { Offer } from '../../types/offer';
-import { useAppSelector } from '../../hooks';
-import { AuthorizationStatus } from '../../const';
+import { ReviewType } from '../../types/review';
 
 type ReviewListPropsType = {
-  reviews: ReviewType[];
   offerId: Offer['id'];
+  reviews: ReviewType[];
 }
 
-function ReviewList ({reviews, offerId}: ReviewListPropsType) {
-  const status = useAppSelector((state) => state.authorizationStatus);
-  const reviewsRender = reviews.slice(0, MAX_REVIEWS_COUNT);
-  const reviewsToRender = reviewsRender
-    .sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, MAX_REVIEWS_COUNT);
+function ReviewList ({offerId, reviews}: ReviewListPropsType) {
 
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
       <ul className="reviews__list">
-        {reviewsToRender.map((item) => (
+        {reviews.map((item) => (
           <ReviewItem key={item.id} review={item} />
         ))}
       </ul>
-      {status === AuthorizationStatus.Auth ? <ReviewForm offerId={offerId}/> : ''}
+      <ReviewForm offerId={offerId}/>
     </section>
   );
 }

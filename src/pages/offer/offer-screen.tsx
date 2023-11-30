@@ -11,7 +11,6 @@ import { MAX_NEAR_PLACES_COUNT } from '../../const';
 function OfferScreen(): JSX.Element {
 
   const { id } = useParams();
-  const reviews = useAppSelector((state) => state.reviews);
   const offer = useAppSelector((state) => state.offer);
   const dispatch = useAppDispatch();
   const nearPlaces = useAppSelector((state) => state.nearPlaces);
@@ -19,9 +18,9 @@ function OfferScreen(): JSX.Element {
 
   useEffect(() => {
     if (id) {
+      dispatch(fetchReviews(id));
       dispatch(fetchOffer(id));
       dispatch(fetchNearPlaces(id));
-      dispatch(fetchReviews(id));
     }
 
     return () => {
@@ -34,7 +33,7 @@ function OfferScreen(): JSX.Element {
       <Header />
       <main className="page__main page__main--offer">
         <section className="offer">
-          <OfferDetails offer={offer} offers={nearPlacesToRender} reviews={reviews} offerId={'id'} />
+          <OfferDetails offer={offer} offers={nearPlacesToRender} offerId={'id'} />
         </section>
         <div className="container">
           <section className="near-places places">

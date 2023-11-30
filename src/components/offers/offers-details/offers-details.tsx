@@ -4,16 +4,29 @@ import InsideOffers from '../inside-offer/inside-offer';
 import Map from '../../map/map';
 import { Offer } from '../../../types/offer';
 import { OffersType } from '../../../types/offers';
-import { ReviewType } from '../../../types/review';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { MAX_REVIEWS_COUNT } from '../../../const';
+import { useEffect } from 'react';
+import { fetchReviews } from '../../../store/api-action';
 
 type OfferTypeProps = {
   offer: Offer | null;
   offers: OffersType[];
-  reviews: ReviewType[];
   offerId: Offer['id'];
 }
 
-function OfferDetails ({offer, offers, reviews, offerId}: OfferTypeProps) {
+function OfferDetails ({offer, offers, offerId}: OfferTypeProps) {
+  const dispatch = useAppDispatch();
+  const reviews = useAppSelector((state) => state.reviews);
+  const reviewsRender = reviews.slice(0, MAX_REVIEWS_COUNT);
+  const reviewsToRender = reviewsRender
+    .sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, MAX_REVIEWS_COUNT);
+
+  useEffect(() => {
+    dispatch(fetchReviews(offerId));
+  }, [dispatch, offerId]);
+
   if(!offer) {
     return null;
   }
@@ -97,7 +110,7 @@ function OfferDetails ({offer, offers, reviews, offerId}: OfferTypeProps) {
               </p>
             </div>
           </div>
-          <ReviewList reviews={reviews} offerId={offerId}/>
+          <ReviewList offerId={offerId} reviews={reviewsToRender}/>
         </div>
       </div>
       <Map block={'offer'} location={offer.location} offers={offers} specialOfferId={null} />

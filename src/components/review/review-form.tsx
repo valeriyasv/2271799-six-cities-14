@@ -32,14 +32,6 @@ function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
         reviewData: {
           comment,
           rating: +rating,
-          id: 0,
-          user: {
-            id: 0,
-            name: '',
-            isPro: false,
-            avatarUrl: ''
-          },
-          date: ''
         },
         offerId,
       })

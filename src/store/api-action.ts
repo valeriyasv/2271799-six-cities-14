@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Offer } from '../types/offer';
 import { APIRoute, NameSpace } from '../const';
 import { OfferPreviewType } from '../types/offer-preview';
-import { ReviewType } from '../types/review';
+import { ReviewSendType, ReviewType } from '../types/review';
 import { AuthType } from '../types/auth';
 import { dropToken, saveToken } from '../services/token';
 import { UserType } from '../types/user';
@@ -41,7 +41,7 @@ export const fetchReviews = createAsyncThunk<ReviewType[], Offer['id'], ExtraTyp
 
 export const postReviews = createAsyncThunk<
   ReviewType,
-  { reviewData: ReviewType; offerId: Offer['id'] },
+  { reviewData: ReviewSendType; offerId: Offer['id'] },
   ExtraType
 >(
   `${NameSpace.Reviews}/postReview`,
