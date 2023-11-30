@@ -10,10 +10,11 @@ export type CardOfferProps = {
   size: CardImageSizeType;
   price: number;
   title: string;
-  id?: string;
+  id: string;
   block?: string;
   onCardHover?: (id: OfferPreviewType['id'] | null) => void;
   type: string;
   isHover: boolean;
   isPremium: boolean;
+  isFavorite: boolean;
 };

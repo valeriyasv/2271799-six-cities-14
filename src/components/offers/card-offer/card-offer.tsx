@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { CardOfferProps } from '../../../types/common';
+import BookmarkButton from '../../bookmark-button/bookmark-button';
 
 export type CardImageSizeType = 'small' | 'large';
 
@@ -8,7 +9,7 @@ const sizeMap: Record<CardImageSizeType, {width: string; height: string}> = {
   large: {width: '260', height: '200'},
 };
 
-function CardOffer({previewImage, price, title, id, block, type, size = 'large',isPremium, isHover = false, onCardHover}: CardOfferProps): JSX.Element {
+function CardOffer({previewImage, price, title, id, block, type, isFavorite, size = 'large',isPremium, isHover = false, onCardHover}: CardOfferProps): JSX.Element {
   const handleMouseEnter = () => {
     onCardHover?.('id');
   };
@@ -41,12 +42,7 @@ function CardOffer({previewImage, price, title, id, block, type, size = 'large',
             <b className='place-card__price-value'>&euro;{price}</b>
             <span className='place-card__price-text'>&#47;&nbsp;night</span>
           </div>
-          <button className='place-card__bookmark-button button' type='button'>
-            <svg className='place-card__bookmark-icon' width='18' height='19'>
-              <use xlinkHref='#icon-bookmark'></use>
-            </svg>
-            <span className='visually-hidden'>To bookmarks</span>
-          </button>
+          <BookmarkButton id={id} isActive={isFavorite} block={'place-card'} size={'small'} />
         </div>
         <div className='place-card__rating rating'>
           <div className='place-card__stars rating__stars'>

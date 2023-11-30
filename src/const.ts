@@ -27,6 +27,7 @@ export enum APIRoute {
   Logout = '/logout',
   Reviews = '/reviews',
   NearPlaces = 'near_places',
+  Favorites = '/favorites'
 }
 
 export const CityMapData = {

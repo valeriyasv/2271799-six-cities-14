@@ -12,7 +12,7 @@ import
   fetchReviews,
   login,
   logout,
-  // checkAuth,
+  checkAuth,
   postReviews,
   fetchFavorites,
   fetchNearPlaces,
@@ -74,6 +74,10 @@ export const reducer = createReducer(initialState, (builder) => {
       state.offerFetchingStatus = RequestStatus.Success;
       state.offer = action.payload;
     })
+    .addCase(fetchReviews.fulfilled, (state, action) => {
+      state.reviewsFetchingStatus = RequestStatus.Success;
+      state.reviews = action.payload;
+    })
     .addCase(fetchOffer.rejected, (state) => {
       state.offerFetchingStatus = RequestStatus.Error;
     })
@@ -82,10 +86,6 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchReviews.pending, (state) => {
       state.reviewsFetchingStatus = RequestStatus.Pending;
-    })
-    .addCase(fetchReviews.fulfilled, (state, action) => {
-      state.reviewsFetchingStatus = RequestStatus.Success;
-      state.reviews = action.payload;
     })
     .addCase(fetchReviews.rejected, (state) => {
       state.reviewsFetchingStatus = RequestStatus.Error;
@@ -116,18 +116,6 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchFavorites.rejected, (state) => {
       state.favoritesFetchingStatus = RequestStatus.Error;
     })
-    // .addCase(checkAuth.pending, (state) => {
-    //   state.user = null;
-    //   state.authorizationStatus = AuthorizationStatus.Unknown;
-    // })
-    // .addCase(checkAuth.fulfilled, (state, action) => {
-    //   state.user = action.payload;
-    //   state.authorizationStatus = AuthorizationStatus.Auth;
-    // })
-    // .addCase(checkAuth.rejected, (state) => {
-    //   state.user = null;
-    //   state.authorizationStatus = AuthorizationStatus.NoAuth;
-    // })
     .addCase(login.pending, (state) => {
       state.loginSendingStatus = RequestStatus.Pending;
     })
@@ -141,7 +129,22 @@ export const reducer = createReducer(initialState, (builder) => {
       state.user = null;
       state.authorizationStatus = AuthorizationStatus.NoAuth;
     })
+    // .addCase(dropLoginSendingStatus, (state) => {
+    //   state.loginSendingStatus = RequestStatus.Idle;
+    // })
     .addCase(logout.pending, (state) => {
+      state.user = null;
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+    })
+    .addCase(checkAuth.pending, (state) => {
+      state.user = null;
+      state.authorizationStatus = AuthorizationStatus.Unknown;
+    })
+    .addCase(checkAuth.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.authorizationStatus = AuthorizationStatus.Auth;
+    })
+    .addCase(checkAuth.rejected, (state) => {
       state.user = null;
       state.authorizationStatus = AuthorizationStatus.NoAuth;
     });

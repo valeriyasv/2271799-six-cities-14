@@ -29,6 +29,7 @@ function ListOffers({ offers, block}: ListOffersProps): JSX.Element {
           onCardHover={handleCardHover}
           isHover={hoveredOfferId === offer.id}
           isPremium={offer.isPremium}
+          isFavorite={offer.isFavorite}
         />
       )
       )}

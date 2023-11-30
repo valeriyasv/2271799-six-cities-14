@@ -16,7 +16,6 @@ export const fetchOffers = createAsyncThunk<OfferPreviewType[], undefined, Extra
   `${NameSpace.Offers}/fetchOffers`,
   async (_arg, {extra: api}) => {
     const {data} = await api.get<OfferPreviewType[]>(APIRoute.Offers);
-
     return data;
   }
 );
@@ -25,7 +24,6 @@ export const fetchOffer = createAsyncThunk<Offer, Offer['id'], ExtraType>(
   `${NameSpace.Offer}/fetchOffer`,
   async (offerId, {extra: api}) => {
     const {data} = await api.get<Offer>(`${APIRoute.Offers}/${offerId}`);
-
     return data;
   }
 );
@@ -33,8 +31,7 @@ export const fetchOffer = createAsyncThunk<Offer, Offer['id'], ExtraType>(
 export const fetchReviews = createAsyncThunk<ReviewType[], Offer['id'], ExtraType>(
   `${NameSpace.Reviews}/fetchReviews`,
   async (offerId, {extra: api}) => {
-    const {data} = await api.get<ReviewType[]>(`${APIRoute.Reviews}/${offerId}`);
-
+    const {data} = await api.get<ReviewType[]>(`${APIRoute.Reviews}${offerId}`);
     return data;
   }
 );
@@ -67,26 +64,23 @@ export const fetchNearPlaces = createAsyncThunk<OfferPreviewType[], Offer['id'],
 
 export const fetchFavorites = createAsyncThunk<OfferPreviewType[], undefined, ExtraType>(
   `${NameSpace.Favorites}/fetchFavorites`,
-  async (offerId, {extra: api}) => {
-    const {data} = await api.get<OfferPreviewType[]>(
-      `${APIRoute.Offers}/${offerId}${APIRoute.NearPlaces}`
-    );
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<OfferPreviewType[]>(APIRoute.Favorites);
 
     return data;
   }
 );
 
-export const checkAuth = createAsyncThunk<AuthType, UserType, ExtraType>(
-  `${NameSpace.User}/login`,
-  async (loginData, {extra: api}) => {
-    const {data} = await api.post<AuthType>(APIRoute.Login, loginData);
-    saveToken(data.token);
+export const checkAuth = createAsyncThunk<AuthType, undefined, ExtraType>(
+  `${NameSpace.User}/checkAuth`,
+  async (_arg, {extra: api}) => {
+    const {data} = await api.post<AuthType>(APIRoute.Login);
 
     return data;
   }
 );
 
-export const login = createAsyncThunk<AuthType,UserType, ExtraType>(
+export const login = createAsyncThunk<AuthType, UserType, ExtraType>(
   `${NameSpace.User}/login`,
   async (loginData, {extra: api}) => {
     const {data} = await api.post<AuthType>(APIRoute.Login, loginData);

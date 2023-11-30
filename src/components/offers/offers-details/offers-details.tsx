@@ -4,32 +4,22 @@ import InsideOffers from '../inside-offer/inside-offer';
 import Map from '../../map/map';
 import { Offer } from '../../../types/offer';
 import { OffersType } from '../../../types/offers';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { MAX_REVIEWS_COUNT } from '../../../const';
-import { useEffect } from 'react';
-import { fetchReviews } from '../../../store/api-action';
+import BookmarkButton from '../../bookmark-button/bookmark-button';
+import { ReviewType } from '../../../types/review';
 
 type OfferTypeProps = {
   offer: Offer | null;
   offers: OffersType[];
   offerId: Offer['id'];
+  reviews: ReviewType[];
 }
 
-function OfferDetails ({offer, offers, offerId}: OfferTypeProps) {
-  const dispatch = useAppDispatch();
-  const reviews = useAppSelector((state) => state.reviews);
-  const reviewsRender = reviews.slice(0, MAX_REVIEWS_COUNT);
-  const reviewsToRender = reviewsRender
-    .sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, MAX_REVIEWS_COUNT);
-
-  useEffect(() => {
-    dispatch(fetchReviews(offerId));
-  }, [dispatch, offerId]);
+function OfferDetails ({offer, offers, offerId, reviews}: OfferTypeProps) {
 
   if(!offer) {
     return null;
   }
+
 
   const ratingPercentage: number = (offer.rating / 6) * 100;
   return (
@@ -50,12 +40,7 @@ function OfferDetails ({offer, offers, offerId}: OfferTypeProps) {
             <h1 className="offer__name">
               {offer.title}
             </h1>
-            <button className="offer__bookmark-button button" type="button">
-              <svg className="offer__bookmark-icon" width="31" height="33">
-                <use xlinkHref="#icon-bookmark"></use>
-              </svg>
-              <span className="visually-hidden">To bookmarks</span>
-            </button>
+            <BookmarkButton id={offer.id} isActive={offer.isFavorite} block={'offer'} size={'large'} />
           </div>
           <div className="offer__rating rating">
             <div className="offer__stars rating__stars">
@@ -110,7 +95,7 @@ function OfferDetails ({offer, offers, offerId}: OfferTypeProps) {
               </p>
             </div>
           </div>
-          <ReviewList offerId={offerId} reviews={reviewsToRender}/>
+          <ReviewList offerId={offerId} reviews={reviews}/>
         </div>
       </div>
       <Map block={'offer'} location={offer.location} offers={offers} specialOfferId={null} />

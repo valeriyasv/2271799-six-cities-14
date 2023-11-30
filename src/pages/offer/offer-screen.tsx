@@ -6,21 +6,25 @@ import { useEffect } from 'react';
 import { fetchNearPlaces, fetchOffer, fetchReviews } from '../../store/api-action';
 import { dropOffer } from '../../store/actions';
 import OfferDetails from '../../components/offers/offers-details/offers-details';
-import { MAX_NEAR_PLACES_COUNT } from '../../const';
+import { MAX_NEAR_PLACES_COUNT, MAX_REVIEWS_COUNT } from '../../const';
 
 function OfferScreen(): JSX.Element {
-
-  const { id } = useParams();
+  const { id } = useParams<{id: string}>();
   const offer = useAppSelector((state) => state.offer);
   const dispatch = useAppDispatch();
   const nearPlaces = useAppSelector((state) => state.nearPlaces);
   const nearPlacesToRender = nearPlaces.slice(0, MAX_NEAR_PLACES_COUNT);
+  const reviews = useAppSelector((state) => state.reviews);
+  const reviewsRender = reviews.slice(0, MAX_REVIEWS_COUNT);
+  const reviewsToRender = reviewsRender
+    .sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, MAX_REVIEWS_COUNT);
 
   useEffect(() => {
     if (id) {
+      dispatch(fetchNearPlaces(id));
       dispatch(fetchReviews(id));
       dispatch(fetchOffer(id));
-      dispatch(fetchNearPlaces(id));
     }
 
     return () => {
@@ -33,7 +37,7 @@ function OfferScreen(): JSX.Element {
       <Header />
       <main className="page__main page__main--offer">
         <section className="offer">
-          <OfferDetails offer={offer} offers={nearPlacesToRender} offerId={'id'} />
+          <OfferDetails offer={offer} offers={nearPlacesToRender} reviews={reviewsToRender} offerId={'id'} />
         </section>
         <div className="container">
           <section className="near-places places">
