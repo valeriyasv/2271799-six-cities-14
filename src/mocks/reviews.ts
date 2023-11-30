@@ -2,7 +2,7 @@ import { ReviewType } from '../types/review';
 
 export const reviewsData: ReviewType[] = [
   {
-    id: 1,
+    id: '1',
     comment: 'I stayed here for one night and it was an unpleasant experience.',
     date: '2023-11-04T11:13:12.982Z',
     rating: 5,
@@ -15,7 +15,7 @@ export const reviewsData: ReviewType[] = [
   },
 
   {
-    id: 2,
+    id: '2',
     comment: 'The deluxe room was a quite comfortable one with all the adequate facilities. The only thing that made me feel uncomfortable was the rude behavior of an impolite staff at the reception desk.',
     date: '2023-11-04T11:13:12.982Z',
     rating: 2,
@@ -27,7 +27,7 @@ export const reviewsData: ReviewType[] = [
     },
   },
   {
-    id: 3,
+    id: '3',
     comment: 'Home is amazing. It\'s like staying in a museum. The rooms, furnishings and artworks are incredible. The views of My Vesuvius',
     date: '2023-10-02T09:23:20.316Z',
     rating: 4,
