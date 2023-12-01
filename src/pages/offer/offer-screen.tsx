@@ -9,7 +9,6 @@ import OfferDetails from '../../components/offers/offers-details/offers-details'
 import { MAX_NEAR_PLACES_COUNT, MAX_REVIEWS_COUNT } from '../../const';
 
 function OfferScreen(): JSX.Element {
-  const { id } = useParams<{id: string}>();
   const offer = useAppSelector((state) => state.offer);
   const dispatch = useAppDispatch();
   const nearPlaces = useAppSelector((state) => state.nearPlaces);
@@ -19,11 +18,12 @@ function OfferScreen(): JSX.Element {
   const reviewsToRender = reviewsRender
     .sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, MAX_REVIEWS_COUNT);
+  const { id } = useParams();
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchNearPlaces(id));
       dispatch(fetchReviews(id));
+      dispatch(fetchNearPlaces(id));
       dispatch(fetchOffer(id));
     }
 

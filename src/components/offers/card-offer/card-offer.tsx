@@ -51,7 +51,7 @@ function CardOffer({previewImage, price, title, id, block, type, isFavorite, siz
           </div>
         </div>
         <h2 className='place-card__name'>
-          <Link to={`/offers/${id}`}>
+          <Link to={`offer/${id}`}>
             {title}
           </Link>
         </h2>

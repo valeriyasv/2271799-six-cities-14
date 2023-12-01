@@ -12,7 +12,6 @@ import { fetchOffers } from '../../store/api-action';
 
 function MainScreen(): JSX.Element {
   const dispatch = useAppDispatch();
-  // const fetchingStatus = useAppSelector((state) => state.offerFetchingStatus);
   const activeCity = useAppSelector((state) => state.activeCity);
   const offers = useAppSelector((state) => state.offers);
   const offerByCity = offers.filter((offer) => offer.city?.name === activeCity.name);

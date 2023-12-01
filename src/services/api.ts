@@ -26,7 +26,7 @@ export const createAPI = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError<{error: string}>) => {
       if (error.response?.status === StatusCodes.NOT_FOUND) {
-        browserHistory.push(AppRoute.Main);
+        browserHistory.push(AppRoute.NotFound);
       }
 
       throw error;

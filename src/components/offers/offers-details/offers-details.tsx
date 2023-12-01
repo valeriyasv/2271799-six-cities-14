@@ -20,13 +20,12 @@ function OfferDetails ({offer, offers, offerId, reviews}: OfferTypeProps) {
     return null;
   }
 
-
   const ratingPercentage: number = (offer.rating / 6) * 100;
   return (
     <>
       <div className="offer__gallery-container container">
         <div className="offer__gallery">
-          {offer.images.map((item) => <ImageOffer src={item} key={offer.id} />)}
+          {offer.images.map((item, index) => <ImageOffer src={item} key={index} />)}
         </div>
       </div>
       <div className="offer__container container">
@@ -67,7 +66,7 @@ function OfferDetails ({offer, offers, offerId, reviews}: OfferTypeProps) {
           <div className="offer__inside">
             <h2 className="offer__inside-title">What&apos;s inside</h2>
             <ul className="offer__inside-list">
-              {offer.goods.map((item) => <InsideOffers insideOffer={item} key={offer.id}/>)}
+              {offer.goods.map((item, index) => <InsideOffers insideOffer={item} key={index}/>)}
             </ul>
           </div>
           <div className="offer__host">

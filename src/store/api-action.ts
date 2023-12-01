@@ -7,6 +7,7 @@ import { ReviewSendType, ReviewType } from '../types/review';
 import { AuthType } from '../types/auth';
 import { dropToken, saveToken } from '../services/token';
 import { UserType } from '../types/user';
+import { StateType } from '../types/state';
 
 type ExtraType = {
   extra: AxiosInstance;
@@ -31,7 +32,7 @@ export const fetchOffer = createAsyncThunk<Offer, Offer['id'], ExtraType>(
 export const fetchReviews = createAsyncThunk<ReviewType[], Offer['id'], ExtraType>(
   `${NameSpace.Reviews}/fetchReviews`,
   async (offerId, {extra: api}) => {
-    const {data} = await api.get<ReviewType[]>(`${APIRoute.Reviews}${offerId}`);
+    const {data} = await api.get<ReviewType[]>(`${APIRoute.Reviews}/${offerId}`);
     return data;
   }
 );
@@ -46,18 +47,19 @@ export const postReviews = createAsyncThunk<
     const {data} = await api.post<ReviewType>(`${APIRoute.Reviews}/${offerId}`,
       reviewData
     );
-
     return data;
   }
 );
 
-export const fetchNearPlaces = createAsyncThunk<OfferPreviewType[], Offer['id'], ExtraType>(
+export const fetchNearPlaces = createAsyncThunk<OfferPreviewType[], Offer['id'], {
+  state: StateType;
+  extra: AxiosInstance;
+}>(
   `${NameSpace.NearPlaces}/fetchNearPlaces`,
   async (offerId, {extra: api}) => {
     const {data} = await api.get<OfferPreviewType[]>(
       `${APIRoute.Offers}/${offerId}${APIRoute.NearPlaces}`
     );
-
     return data;
   }
 );

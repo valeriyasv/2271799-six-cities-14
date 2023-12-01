@@ -6,6 +6,7 @@ export type ReviewType = {
     rating: number;
     comment: string;
     date: string;
+    type: string;
 };
 
 export type ReviewSendType = {

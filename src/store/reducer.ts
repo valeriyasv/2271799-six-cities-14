@@ -74,15 +74,15 @@ export const reducer = createReducer(initialState, (builder) => {
       state.offerFetchingStatus = RequestStatus.Success;
       state.offer = action.payload;
     })
-    .addCase(fetchReviews.fulfilled, (state, action) => {
-      state.reviewsFetchingStatus = RequestStatus.Success;
-      state.reviews = action.payload;
-    })
     .addCase(fetchOffer.rejected, (state) => {
       state.offerFetchingStatus = RequestStatus.Error;
     })
     .addCase(fetchNearPlaces.fulfilled, (state, action) => {
       state.nearPlaces = action.payload;
+    })
+    .addCase(fetchReviews.fulfilled, (state, action) => {
+      state.reviews = action.payload;
+      state.reviewsFetchingStatus = RequestStatus.Success;
     })
     .addCase(fetchReviews.pending, (state) => {
       state.reviewsFetchingStatus = RequestStatus.Pending;
