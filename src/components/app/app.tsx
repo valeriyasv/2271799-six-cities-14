@@ -21,7 +21,7 @@ function App(): JSX.Element {
             </PrivateRoute>
           }
           />
-          <Route path={`${AppRoute.Offer}/:id`} element={<OfferScreen />} />
+          <Route path={AppRoute.Offer} element={<OfferScreen />} />
           <Route path={AppRoute.NotFound} element={<NotFoundScreen />} />
         </Routes>
       </BrowserRouter>

@@ -3,7 +3,7 @@ export enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer',
+  Offer = '/offer/:id',
   NotFound = '/404'
 }
 
@@ -26,8 +26,8 @@ export enum APIRoute {
   Offers = '/offers',
   Login = '/login',
   Logout = '/logout',
-  Reviews = '/reviews',
-  NearPlaces = '/near_places',
+  Reviews = '/comments',
+  NearPlaces = '/nearby',
   Favorites = '/favorites'
 }
 

@@ -22,9 +22,9 @@ function OfferScreen(): JSX.Element {
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchReviews(id));
       dispatch(fetchNearPlaces(id));
       dispatch(fetchOffer(id));
+      dispatch(fetchReviews(id));
     }
 
     return () => {

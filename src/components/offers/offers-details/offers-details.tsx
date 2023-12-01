@@ -25,7 +25,7 @@ function OfferDetails ({offer, offers, offerId, reviews}: OfferTypeProps) {
     <>
       <div className="offer__gallery-container container">
         <div className="offer__gallery">
-          {offer.images.map((item, index) => <ImageOffer src={item} key={index} />)}
+          {offer.images.map((item) => <ImageOffer src={item} key={item} />)}
         </div>
       </div>
       <div className="offer__container container">
@@ -66,7 +66,7 @@ function OfferDetails ({offer, offers, offerId, reviews}: OfferTypeProps) {
           <div className="offer__inside">
             <h2 className="offer__inside-title">What&apos;s inside</h2>
             <ul className="offer__inside-list">
-              {offer.goods.map((item, index) => <InsideOffers insideOffer={item} key={index}/>)}
+              {offer.goods.map((item) => <InsideOffers insideOffer={item} key={item}/>)}
             </ul>
           </div>
           <div className="offer__host">
