@@ -1,52 +1,36 @@
 import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
-import { useRef, FormEvent } from 'react';
-import { useAppDispatch } from '../../hooks';
+import { useRef, FormEvent, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../store/api-action';
 import { AppRoute } from '../../const';
-import { UserType } from '../../types/user';
+import { AuthorizationStatus } from '../../const';
 
 function LoginScreen(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  // const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const onSubmit = (authData: UserType) => {
-    dispatch(login(authData));
-  };
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      navigate(AppRoute.Main);
+    }
+  }, [authorizationStatus, navigate]);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if(emailRef.current !== null && passwordRef.current !== null) {
-      onSubmit({
+    if (emailRef.current !== null && passwordRef.current !== null) {
+      dispatch(login({
         email: emailRef.current.value,
         password: passwordRef.current.value
-      });
+      }));
     }
   };
-
-
-  // useEffect(() => {
-  //   if (authorizationStatus === AuthorizationStatus.Auth) {
-  //     navigate(AppRoute.Main);
-  //   }
-  // }, [authorizationStatus, navigate]);
-
-  // const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
-  //   evt.preventDefault();
-
-  //   if (emailRef.current !== null && passwordRef.current !== null) {
-  //     dispatch(login({
-  //       email: emailRef.current.value,
-  //       password: passwordRef.current.value
-  //     }));
-  //   }
-  // };
   return (
     <div className="page page--gray page--login">
       <Helmet>
@@ -66,9 +50,7 @@ function LoginScreen(): JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post"
-              onSubmit={handleSubmit}
-            >
+            <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
@@ -91,7 +73,7 @@ function LoginScreen(): JSX.Element {
                   required
                 />
               </div>
-              <button onClick={() => navigate(AppRoute.Main)} className="login__submit form__submit button" type="submit">Sign in</button>
+              <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
           </section>
           <section className="locations locations--login locations--current">

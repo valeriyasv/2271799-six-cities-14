@@ -16,6 +16,7 @@ function MainScreen(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
   const offerByCity = offers.filter((offer) => offer.city?.name === activeCity.name);
   const [activeSorting, setActiveSorting] = useState<SortingType>('Popular');
+
   function handleSortingChange(type: SortingType) {
     setActiveSorting(type);
   }
