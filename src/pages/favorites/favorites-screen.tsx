@@ -45,7 +45,7 @@ function FavoritesScreen(): JSX.Element {
                       </div>
                     </div>
                     <div className="favorites__places">
-                      <ListOffers offers={groupedFavorites} block={'favorites'}/>
+                      <ListOffers offers={groupedFavorites} block={'favorites'} onCardHover={() => {}}/>
                     </div>
                   </li>))}
             </ul>
