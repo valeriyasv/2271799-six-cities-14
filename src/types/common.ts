@@ -11,5 +11,4 @@ export type CardOfferProps = {
   size: CardImageSizeType;
   block?: string;
   onCardHover?: (id: OfferPreviewType['id'] | null) => void;
-  isHover: boolean;
 };

@@ -12,13 +12,12 @@ const sizeMap: Record<CardImageSizeType, {width: string; height: string}> = {
 function CardOffer({
   offer,
   size = 'large',
-  isHover = false,
   block,
   onCardHover
 }: CardOfferProps): JSX.Element {
   const {previewImage, price, title, id, type, isFavorite, isPremium} = offer;
   const handleMouseEnter = () => {
-    onCardHover?.('id');
+    onCardHover?.(id);
   };
 
   const handleMouseLeave = () => {
@@ -26,7 +25,7 @@ function CardOffer({
   };
 
   return (
-    <article className={`${block}__card place-card ${isHover ? 'place-card--active' : ''}}`}
+    <article className={`${block}__card place-card`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

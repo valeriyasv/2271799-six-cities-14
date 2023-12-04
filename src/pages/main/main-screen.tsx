@@ -9,6 +9,7 @@ import { useState, useEffect} from 'react';
 import { SortingType } from '../../types/sorting';
 import { sorting } from '../../utils';
 import { fetchOffers } from '../../store/api-action';
+import { Offer } from '../../types/offer';
 
 function MainScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -16,7 +17,10 @@ function MainScreen(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
   const offerByCity = offers.filter((offer) => offer.city?.name === activeCity.name);
   const [activeSorting, setActiveSorting] = useState<SortingType>('Popular');
-
+  const [hoveredOfferId, setHoveredId] = useState<Offer['id'] | null>(null);
+  function handleCardHover(offerId: Offer['id'] | null) {
+    setHoveredId(offerId);
+  }
   function handleSortingChange(type: SortingType) {
     setActiveSorting(type);
   }
@@ -44,10 +48,10 @@ function MainScreen(): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offerByCity.length} places to stay in {activeCity.name}</b>
               <Sorting activeSorting={activeSorting} onChange={handleSortingChange}/>
-              <ListOffers offers={sorting[activeSorting](offerByCity)} block={'cities'}/>
+              <ListOffers onCardHover={handleCardHover} offers={sorting[activeSorting](offerByCity)} block={'cities'}/>
             </section>
             <div className="cities__right-section">
-              <Map offers={offers} block='cities' location={activeCity.location} specialOfferId={null}/>
+              <Map offers={offers} block='cities' location={activeCity.location} specialOfferId={hoveredOfferId}/>
             </div>
           </div>
         </div>

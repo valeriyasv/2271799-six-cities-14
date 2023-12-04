@@ -1,17 +1,13 @@
 import CardOffer from '../card-offer/card-offer';
-import { useState } from 'react';
 import { Offer } from '../../../types/offer';
 
 type ListOffersProps = {
   offers: Offer[];
   block: string;
+  onCardHover: (id: string | null) => void;
 }
 
-function ListOffers({ offers, block}: ListOffersProps): JSX.Element {
-  const [hoveredOfferId, setHoveredOfferId] = useState<Offer['id'] | null>(null);
-  function handleCardHover(offerId: Offer['id'] | null) {
-    setHoveredOfferId(offerId);
-  }
+function ListOffers({ offers, block, onCardHover}: ListOffersProps): JSX.Element {
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -20,8 +16,7 @@ function ListOffers({ offers, block}: ListOffersProps): JSX.Element {
           key={offer.id}
           block={block}
           size='large'
-          onCardHover={handleCardHover}
-          isHover={hoveredOfferId === offer.id}
+          onCardHover={onCardHover}
           offer={offer}
         />
       )
