@@ -1,7 +1,8 @@
-import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
-import { AppRoute } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import cn from 'classnames';
+import { useCallback } from 'react';
+import { fetchOffers, postFavorites } from '../../store/api-action';
+import { Offer } from '../../types/offer';
 
 export type BookmarkSizeType = 'small' | 'large';
 
@@ -15,21 +16,24 @@ type BookmarkButtonProps = {
   isActive: boolean;
   block: string;
   size: 'small' | 'large';
+  offer: Offer;
 }
 
 function BookmarkButton({
   isActive,
   block,
   size = 'small',
+  offer
 }: BookmarkButtonProps) {
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const isAuthorized = useAppSelector((state) => state.authorizationStatus);
 
-  const handleButtonClick = () => {
-    if(!isAuthorized) {
-      navigate(AppRoute.Login);
-    }
-  };
+  const {isFavorite, id} = offer;
+  const handleButtonClick = useCallback(() => {
+    dispatch(postFavorites({offer, offerId: id, status: isFavorite ? 0 : 1}));
+    dispatch(fetchOffers());
+  },[dispatch, id, isFavorite, offer]);
+
   return (
     <button className={cn(`${block}__bookmark-button`, 'button', {
       [`${block}__bookmark-button--active`] : isActive && isAuthorized,

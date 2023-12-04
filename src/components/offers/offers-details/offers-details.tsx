@@ -6,6 +6,7 @@ import { Offer } from '../../../types/offer';
 import { OffersType } from '../../../types/offers';
 import BookmarkButton from '../../bookmark-button/bookmark-button';
 import { ReviewType } from '../../../types/review';
+import ReviewForm from '../../review/review-form';
 
 type OfferTypeProps = {
   offer: Offer | null;
@@ -39,7 +40,7 @@ function OfferDetails ({offer, offers, offerId, reviews}: OfferTypeProps) {
             <h1 className="offer__name">
               {offer.title}
             </h1>
-            <BookmarkButton id={offer.id} isActive={offer.isFavorite} block={'offer'} size={'large'} />
+            <BookmarkButton offer={offer} id={offer.id} isActive={offer.isFavorite} block={'offer'} size={'large'} />
           </div>
           <div className="offer__rating rating">
             <div className="offer__stars rating__stars">
@@ -94,7 +95,10 @@ function OfferDetails ({offer, offers, offerId, reviews}: OfferTypeProps) {
               </p>
             </div>
           </div>
-          <ReviewList offerId={offerId} reviews={reviews}/>
+          <section className="offer__reviews reviews">
+            <ReviewList reviews={reviews}/>
+            <ReviewForm offerId={offerId}/>
+          </section>
         </div>
       </div>
       <Map block={'offer'} location={offer.location} offers={offers} specialOfferId={offer.id} />

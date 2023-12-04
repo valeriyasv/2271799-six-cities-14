@@ -1,9 +1,8 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { MIN_COMMENT_LENGTH, RequestStatus } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { MIN_COMMENT_LENGTH } from '../../const';
+import { useAppDispatch } from '../../hooks';
 import { postReviews } from '../../store/api-action';
 import { Offer } from '../../types/offer';
-import { fetchReviews } from '../../store/actions';
 
 type ReviewsTypeProps = {
   offerId: Offer['id'];
@@ -11,11 +10,9 @@ type ReviewsTypeProps = {
 
 function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const sendingStatus = useAppSelector((state) => state.reviewsSendingStatus);
   const [comment, setComment] = useState<string>('');
   const [rating, setRating] = useState<number | string>('');
   const isValid = comment.length >= MIN_COMMENT_LENGTH && rating !== '';
-  // const isSending = sendingStatus === RequestStatus.Pending;
 
   function handleCommentChange(evt: ChangeEvent<HTMLTextAreaElement>) {
     setComment(evt.target.value);
@@ -36,18 +33,14 @@ function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
         offerId,
       })
     );
+    setComment('');
+    setRating('');
   }
 
-  useEffect(() => {
-    if(sendingStatus === RequestStatus.Success) {
-      setComment('');
-      setRating('');
-      dispatch(fetchReviews);
-    }
-  }, [sendingStatus, dispatch]);
-
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
+    <form className="reviews__form form" action="#" method="post"
+      onSubmit={handleFormSubmit}
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {['5', '4', '3', '2', '1'].map((value) => (

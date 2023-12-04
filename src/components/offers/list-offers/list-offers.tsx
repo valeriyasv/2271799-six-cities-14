@@ -1,16 +1,15 @@
 import CardOffer from '../card-offer/card-offer';
-import { OffersType } from '../../../types/offers';
 import { useState } from 'react';
-import { OfferPreviewType } from '../../../types/offer-preview';
+import { Offer } from '../../../types/offer';
 
 type ListOffersProps = {
-  offers: OffersType[];
+  offers: Offer[];
   block: string;
 }
 
 function ListOffers({ offers, block}: ListOffersProps): JSX.Element {
-  const [hoveredOfferId, setHoveredOfferId] = useState<OfferPreviewType['id'] | null>(null);
-  function handleCardHover(offerId: OfferPreviewType['id'] | null) {
+  const [hoveredOfferId, setHoveredOfferId] = useState<Offer['id'] | null>(null);
+  function handleCardHover(offerId: Offer['id'] | null) {
     setHoveredOfferId(offerId);
   }
 
@@ -19,17 +18,11 @@ function ListOffers({ offers, block}: ListOffersProps): JSX.Element {
       {offers.map((offer) => (
         <CardOffer
           key={offer.id}
-          previewImage={offer.previewImage}
-          price={offer.price}
-          title={offer.title}
-          id={offer.id}
           block={block}
-          type={offer.type}
           size='large'
           onCardHover={handleCardHover}
           isHover={hoveredOfferId === offer.id}
-          isPremium={offer.isPremium}
-          isFavorite={offer.isFavorite}
+          offer={offer}
         />
       )
       )}

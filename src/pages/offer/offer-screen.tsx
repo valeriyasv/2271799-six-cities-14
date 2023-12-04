@@ -19,6 +19,7 @@ function OfferScreen(): JSX.Element {
     .sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, MAX_REVIEWS_COUNT);
   const { id } = useParams();
+  const isLoading = !offer;
 
   useEffect(() => {
     if (id) {
@@ -34,20 +35,27 @@ function OfferScreen(): JSX.Element {
 
   return (
     <div className='page'>
-      <Header />
-      <main className="page__main page__main--offer">
-        <section className="offer">
-          <OfferDetails offer={offer} offers={nearPlacesToRender} reviews={reviewsToRender} offerId={'id'} />
-        </section>
-        <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighborhood</h2>
-            <div className="near-places__list places__list">
-              <ListOffers offers={nearPlacesToRender} block={'near-places'}/>
+      {isLoading ? (
+        <p>Загрузка...</p>) : (
+        <>
+          <Header />
+          <main className="page__main page__main--offer">
+            <section className="offer">
+              <OfferDetails offer={offer} offers={nearPlacesToRender}
+                reviews={reviewsToRender} offerId={offer.id}
+              />
+            </section>
+            <div className="container">
+              <section className="near-places places">
+                <h2 className="near-places__title">Other places in the neighborhood</h2>
+                <div className="near-places__list places__list">
+                  <ListOffers offers={nearPlacesToRender} block={'near-places'}/>
+                </div>
+              </section>
             </div>
-          </section>
-        </div>
-      </main>
+          </main>
+        </>
+      )}
     </div>
   );
 }

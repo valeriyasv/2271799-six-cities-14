@@ -3,7 +3,6 @@ import { ReviewType } from '../types/review';
 import { CityType } from '../types/city';
 import { CityMapData, RequestStatus } from '../const';
 import {createReducer} from '@reduxjs/toolkit';
-import { OfferPreviewType } from '../types/offer-preview';
 import { OffersType } from '../types/offers';
 import { AuthorizationStatus } from '../const';
 import
@@ -19,9 +18,10 @@ import
   fetchOffer
 }
   from './api-action';
-import { setActiveCity } from './actions';
+import { addFavorite, deleteFavorite, setActiveCity } from './actions';
 import { UserType } from '../types/user';
 import { dropOffer } from './actions';
+import { OfferPreviewType } from '../types/offer-preview';
 
 const initialState: {
   offers: OffersType[];
@@ -115,6 +115,16 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchFavorites.rejected, (state) => {
       state.favoritesFetchingStatus = RequestStatus.Error;
+    })
+    .addCase(addFavorite, (state, action) => {
+      const existingOffer = state.favorites.find((offer) => offer.id === action.payload.id);
+
+      if (!existingOffer) {
+        state.favorites.push(action.payload);
+      }
+    })
+    .addCase(deleteFavorite, (state, action) => {
+      state.favorites = state.favorites.filter((offer) => offer.id !== action.payload);
     })
     .addCase(login.pending, (state) => {
       state.loginSendingStatus = RequestStatus.Pending;

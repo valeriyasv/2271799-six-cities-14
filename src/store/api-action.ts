@@ -44,7 +44,7 @@ export const postReviews = createAsyncThunk<
 >(
   `${NameSpace.Reviews}/postReview`,
   async ({reviewData, offerId}, {extra: api}) => {
-    const {data} = await api.post<ReviewType>(`${APIRoute.Reviews}/${offerId}`,
+    const {data} = await api.post<ReviewType>(`${APIRoute.Reviews}${offerId}`,
       reviewData
     );
     return data;
@@ -82,6 +82,15 @@ export const checkAuth = createAsyncThunk<AuthType, undefined, ExtraType>(
   }
 );
 
+
+export const logout = createAsyncThunk<void, undefined, ExtraType>(
+  `${NameSpace.User}/logout`,
+  (_arg, {extra: api}) => {
+    api.delete(APIRoute.Logout);
+    dropToken();
+  }
+);
+
 export const login = createAsyncThunk<AuthType, UserType, ExtraType>(
   `${NameSpace.User}/login`,
   async (loginData, {extra: api}) => {
@@ -92,10 +101,14 @@ export const login = createAsyncThunk<AuthType, UserType, ExtraType>(
   }
 );
 
-export const logout = createAsyncThunk<void, undefined, ExtraType>(
-  `${NameSpace.User}/logout`,
-  (_arg, {extra: api}) => {
-    api.delete(APIRoute.Logout);
-    dropToken();
+export const postFavorites = createAsyncThunk<Offer, {offer :Offer; offerId: Offer['id']; status: number}, {
+  state: StateType;
+  extra: AxiosInstance;
+}>
+(
+  `${NameSpace.Favorites}/postFavorites`,
+  async({offer, offerId, status},{ extra:api })=>{
+    const { data } = await api.post<Offer>(`favorite/${offerId}/${status}`, offer);
+    return data;
   }
 );

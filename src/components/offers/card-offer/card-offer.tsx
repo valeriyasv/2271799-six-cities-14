@@ -9,7 +9,14 @@ const sizeMap: Record<CardImageSizeType, {width: string; height: string}> = {
   large: {width: '260', height: '200'},
 };
 
-function CardOffer({previewImage, price, title, id, block, type, isFavorite, size = 'large',isPremium, isHover = false, onCardHover}: CardOfferProps): JSX.Element {
+function CardOffer({
+  offer,
+  size = 'large',
+  isHover = false,
+  block,
+  onCardHover
+}: CardOfferProps): JSX.Element {
+  const {previewImage, price, title, id, type, isFavorite, isPremium} = offer;
   const handleMouseEnter = () => {
     onCardHover?.('id');
   };
@@ -42,7 +49,7 @@ function CardOffer({previewImage, price, title, id, block, type, isFavorite, siz
             <b className='place-card__price-value'>&euro;{price}</b>
             <span className='place-card__price-text'>&#47;&nbsp;night</span>
           </div>
-          <BookmarkButton id={id} isActive={isFavorite} block={'place-card'} size={'small'} />
+          <BookmarkButton id={id} isActive={isFavorite} block={'place-card'} size={'small'} offer={offer} />
         </div>
         <div className='place-card__rating rating'>
           <div className='place-card__stars rating__stars'>

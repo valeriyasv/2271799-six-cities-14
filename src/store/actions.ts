@@ -3,6 +3,7 @@ import { CityType } from '../types/city';
 import { Offer } from '../types/offer';
 import { NameSpace } from '../const';
 import { ReviewType } from '../types/review';
+// import { OfferPreviewType } from '../types/offer-preview';
 
 export const fetchOffers = createAction(`${NameSpace.Offers}/fetchOffers`);
 
@@ -17,3 +18,6 @@ export const dropOffer = createAction(`${NameSpace.Offer}/dropOffer`);
 export const setActiveCity = createAction<CityType>(`${NameSpace.Offers}/setActiveCity`);
 
 export const fetchFavorites = createAction(`${NameSpace.Favorites}/fetchFavorites`);
+
+export const addFavorite = createAction<Offer>('addFavorite');
+export const deleteFavorite = createAction<string>('deleteFavorite');
