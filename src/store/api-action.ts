@@ -104,7 +104,8 @@ export const login = createAsyncThunk<AuthType, UserType, ExtraType>(
 export const postFavorites = createAsyncThunk<Offer, {offer :Offer; offerId: Offer['id']; status: number}, {
   state: StateType;
   extra: AxiosInstance;
-}>
+}
+>
 (
   `${NameSpace.Favorites}/postFavorites`,
   async({offer, offerId, status},{ extra:api })=>{
