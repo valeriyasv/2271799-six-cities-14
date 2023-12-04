@@ -93,37 +93,36 @@
 
 import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
-import { useRef, FormEvent, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useNavigate } from 'react-router-dom';
+import { FormEvent, useState } from 'react';
+import { useAppDispatch } from '../../hooks';
 import { login } from '../../store/api-action';
-import { AppRoute } from '../../const';
-import { AuthorizationStatus } from '../../const';
 
 function LoginScreen(): JSX.Element {
-  const emailRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (authorizationStatus === AuthorizationStatus.Auth) {
-      navigate(AppRoute.Main);
-    }
-  }, [authorizationStatus, navigate]);
+  const [valueEmail, setValueEmail] = useState('');
+  const [valuePassword, setValuePassword] = useState('');
+
+  const handleChangeEmail = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    evt.preventDefault();
+    setValueEmail(evt.target.value);
+  };
+
+  const handleChangePassword = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    evt.preventDefault();
+    setValuePassword(evt.target.value);
+  };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (emailRef.current !== null && passwordRef.current !== null) {
-      dispatch(login({
-        email: emailRef.current.value,
-        password: passwordRef.current.value
-      }));
-    }
+    dispatch(login({
+      email: valueEmail,
+      password: valuePassword
+    }));
   };
+
   return (
     <div className="page page--gray page--login">
       <Helmet>
@@ -147,7 +146,8 @@ function LoginScreen(): JSX.Element {
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
-                  ref={emailRef}
+                  value={valueEmail}
+                  onChange={handleChangeEmail}
                   className="login__input form__input"
                   type="email"
                   name="email"
@@ -158,7 +158,8 @@ function LoginScreen(): JSX.Element {
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
                 <input
-                  ref={passwordRef}
+                  value={valuePassword}
+                  onChange={handleChangePassword}
                   className="login__input form__input"
                   type="password"
                   name="password"
