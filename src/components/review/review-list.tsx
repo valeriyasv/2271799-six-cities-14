@@ -3,15 +3,16 @@ import { ReviewType } from '../../types/review';
 
 type ReviewListPropsType = {
   reviews: ReviewType[];
+  reviewsRender: ReviewType[];
 }
 
-function ReviewList ({reviews}: ReviewListPropsType) {
+function ReviewList ({reviews, reviewsRender}: ReviewListPropsType) {
 
   return (
     <>
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
       <ul className="reviews__list">
-        {reviews.map((item) => (
+        {reviewsRender.map((item) => (
           <ReviewItem key={item.id} review={item} />
         ))}
       </ul>

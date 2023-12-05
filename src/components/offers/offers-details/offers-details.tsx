@@ -15,9 +15,10 @@ type OfferTypeProps = {
   offers: OffersType[];
   offerId: Offer['id'];
   reviews: ReviewType[];
+  reviewsRender: ReviewType[];
 }
 
-function OfferDetails ({offer, offers, offerId, reviews}: OfferTypeProps) {
+function OfferDetails ({offer, offers, offerId, reviews, reviewsRender}: OfferTypeProps) {
   const status = useAppSelector((state) => state.authorizationStatus);
   if(!offer) {
     return null;
@@ -98,7 +99,7 @@ function OfferDetails ({offer, offers, offerId, reviews}: OfferTypeProps) {
             </div>
           </div>
           <section className="offer__reviews reviews">
-            <ReviewList reviews={reviews}/>
+            <ReviewList reviewsRender={reviewsRender} reviews={reviews}/>
             {status === AuthorizationStatus.Auth ?
               <ReviewForm offerId={offerId}/>
               : ''}

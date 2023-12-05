@@ -14,9 +14,9 @@ function OfferScreen(): JSX.Element {
   const nearPlaces = useAppSelector((state) => state.nearPlaces);
   const nearPlacesToRender = nearPlaces.slice(0, MAX_NEAR_PLACES_COUNT);
   const reviews = useAppSelector((state) => state.reviews);
-  const reviewsRender = reviews.slice(0, MAX_REVIEWS_COUNT);
-  const reviewsToRender = reviewsRender
-    .sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  const reviewsToRender = reviews
+    .slice()
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, MAX_REVIEWS_COUNT);
   const {id} = useParams();
   const isLoading = !offer;
@@ -41,7 +41,7 @@ function OfferScreen(): JSX.Element {
           <main className="page__main page__main--offer">
             <section className="offer">
               <OfferDetails offer={offer} offers={nearPlacesToRender}
-                reviews={reviewsToRender} offerId={offer?.id}
+                reviews={reviews} offerId={offer?.id} reviewsRender={reviewsToRender}
               />
             </section>
             <div className="container">
