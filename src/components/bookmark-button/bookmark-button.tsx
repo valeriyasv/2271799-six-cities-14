@@ -31,6 +31,7 @@ function BookmarkButton({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const {id} = offer;
+
   const handleButtonClick = useCallback(() => {
     if(isAuthorized === AuthorizationStatus.NoAuth) {
       navigate(AppRoute.Login);

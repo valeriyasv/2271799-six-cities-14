@@ -7,8 +7,20 @@ import FavoritesScreen from '../../pages/favorites/favorites-screen';
 import OfferScreen from '../../pages/offer/offer-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {useEffect} from 'react';
+import { fetchFavorites } from '../../store/api-action';
 
 function App(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const isAuthorized = useAppSelector((state) => state.authorizationStatus === AuthorizationStatus.Auth);
+
+  useEffect(() => {
+    if(isAuthorized) {
+      dispatch(fetchFavorites());
+    }
+  }, [dispatch, fetchFavorites()]);
+
   return (
     <HelmetProvider>
       <BrowserRouter>

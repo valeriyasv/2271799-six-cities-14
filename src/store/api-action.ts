@@ -113,3 +113,16 @@ export const postFavorites = createAsyncThunk<Offer, {offerId: Offer['id']; stat
     return data;
   }
 );
+
+export const deleteFavorites = createAsyncThunk<Offer, {offerId: Offer['id']; status: number}, {
+  state: StateType;
+  extra: AxiosInstance;
+}
+>
+(
+  `${NameSpace.Favorites}/postFavorites`,
+  async({offerId, status},{ extra:api }) => {
+    const { data } = await api.delete<Offer>(`favorite/${offerId}/${status}`);
+    return data;
+  }
+);

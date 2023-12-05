@@ -17,6 +17,7 @@ import
   fetchNearPlaces,
   fetchOffer,
   postFavorites,
+  deleteFavorites,
 }
   from './api-action';
 import { setActiveCity } from './actions';
@@ -156,5 +157,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(postFavorites.pending, (state) => {
       state.favoriteSendingStatus = RequestStatus.Pending;
+    })
+    .addCase(deleteFavorites.fulfilled, (state, action) => {
+      state.favorites.filter(() => action.payload);
     });
 });
