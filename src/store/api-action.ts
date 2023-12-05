@@ -101,15 +101,15 @@ export const login = createAsyncThunk<AuthType, UserType, ExtraType>(
   }
 );
 
-export const postFavorites = createAsyncThunk<Offer, {offer :Offer; offerId: Offer['id']; status: number}, {
+export const postFavorites = createAsyncThunk<Offer, {offerId: Offer['id']; status: number}, {
   state: StateType;
   extra: AxiosInstance;
 }
 >
 (
   `${NameSpace.Favorites}/postFavorites`,
-  async({offer, offerId, status},{ extra:api })=>{
-    const { data } = await api.post<Offer>(`favorite/${offerId}/${status}`, offer);
+  async({offerId, status},{ extra:api }) => {
+    const { data } = await api.post<Offer>(`favorite/${offerId}/${status}`);
     return data;
   }
 );

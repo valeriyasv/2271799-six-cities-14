@@ -11,7 +11,7 @@ const sizeMap: Record<CardImageSizeType, {width: string; height: string}> = {
 
 function CardOffer({
   offer,
-  size = 'large',
+  size,
   block,
   onCardHover
 }: CardOfferProps): JSX.Element {
@@ -34,11 +34,11 @@ function CardOffer({
           <span>Premium</span>
         </div>
         : ''}
-      <div className='cities__image-wrapper place-card__image-wrapper'>
+      <div className={`${block}__image-wrapper place-card__image-wrapper`}>
         <img
           className='place-card__image'
           src={previewImage}
-          {...sizeMap[size]}
+          {...size === 'small' ? sizeMap.small : sizeMap.large}
           alt={title}
         />
       </div>

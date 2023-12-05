@@ -2,9 +2,11 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import {Helmet} from 'react-helmet-async';
 import ListOffers from '../../components/offers/list-offers/list-offers';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
+import {useEffect} from 'react';
+import { fetchFavorites } from '../../store/api-action';
 
 function getFavoritesByCity(favorites: Offer[]) {
   return favorites.reduce<{ [key: string]: Offer[] }>((acc, curr) => {
@@ -22,6 +24,10 @@ function getFavoritesByCity(favorites: Offer[]) {
 function FavoritesScreen(): JSX.Element {
   const favorites = useAppSelector((state) => state.favorites);
   const favoritesByCity = getFavoritesByCity(favorites);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchFavorites());
+  }, [dispatch]);
 
   return (
     <div className="page">
@@ -45,7 +51,7 @@ function FavoritesScreen(): JSX.Element {
                       </div>
                     </div>
                     <div className="favorites__places">
-                      <ListOffers offers={groupedFavorites} block={'favorites'} onCardHover={() => {}}/>
+                      <ListOffers size='small' offers={groupedFavorites} block={'favorites'} onCardHover={() => {}}/>
                     </div>
                   </li>))}
             </ul>

@@ -105,7 +105,7 @@ function OfferDetails ({offer, offers, offerId, reviews}: OfferTypeProps) {
           </section>
         </div>
       </div>
-      <Map block={'offer'} location={offer.location} offers={offers} specialOfferId={offer.id} />
+      <Map block={'offer'} location={offer.location} offers={offers} specialOfferId={offerId} />
     </>
   );
 }

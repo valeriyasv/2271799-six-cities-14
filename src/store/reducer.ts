@@ -15,10 +15,11 @@ import
   postReviews,
   fetchFavorites,
   fetchNearPlaces,
-  fetchOffer
+  fetchOffer,
+  postFavorites,
 }
   from './api-action';
-import { addFavorite, deleteFavorite, setActiveCity } from './actions';
+import { setActiveCity } from './actions';
 import { UserType } from '../types/user';
 import { dropOffer } from './actions';
 import { OfferPreviewType } from '../types/offer-preview';
@@ -33,6 +34,7 @@ const initialState: {
   offer: Offer | null;
   offerFetchingStatus: RequestStatus;
   favorites: OfferPreviewType[];
+  favoriteSendingStatus: RequestStatus;
   favoritesFetchingStatus: RequestStatus;
   activeCity: CityType;
   authorizationStatus: AuthorizationStatus;
@@ -49,6 +51,7 @@ const initialState: {
   offerFetchingStatus: RequestStatus.Idle,
   favorites: [],
   favoritesFetchingStatus: RequestStatus.Idle,
+  favoriteSendingStatus: RequestStatus.Idle,
   activeCity: CityMapData.Paris,
   authorizationStatus: AuthorizationStatus.Unknown,
   user: null,
@@ -116,16 +119,6 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchFavorites.rejected, (state) => {
       state.favoritesFetchingStatus = RequestStatus.Error;
     })
-    .addCase(addFavorite, (state, action) => {
-      const existingOffer = state.favorites.find((offer) => offer.id === action.payload.id);
-
-      if (!existingOffer) {
-        state.favorites.push(action.payload);
-      }
-    })
-    .addCase(deleteFavorite, (state, action) => {
-      state.favorites = state.favorites.filter((offer) => offer.id !== action.payload);
-    })
     .addCase(login.pending, (state) => {
       state.loginSendingStatus = RequestStatus.Pending;
     })
@@ -157,5 +150,11 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(checkAuth.rejected, (state) => {
       state.user = null;
       state.authorizationStatus = AuthorizationStatus.NoAuth;
+    })
+    .addCase(postFavorites.fulfilled, (state, action) => {
+      state.favorites.push(action.payload);
+    })
+    .addCase(postFavorites.pending, (state) => {
+      state.favoriteSendingStatus = RequestStatus.Pending;
     });
 });

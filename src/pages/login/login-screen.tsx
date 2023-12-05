@@ -12,6 +12,7 @@ import { login } from '../../store/api-action';
 function LoginScreen(): JSX.Element {
   const [valueEmail, setValueEmail] = useState('');
   const [valuePassword, setValuePassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const handleChangeEmail = (evt: React.ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();
@@ -24,7 +25,14 @@ function LoginScreen(): JSX.Element {
 
   const handleChangePassword = (evt: React.ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();
-    setValuePassword(evt.target.value);
+    const newPassword = evt.target.value;
+    setValuePassword(newPassword);
+
+    if ((!/(?=.*[A-Za-zА-Яа-я])(?=.*\d)/.test(newPassword))) {
+      setPasswordError('Password must contain at least one letter and one number');
+    } else {
+      setPasswordError('');
+    }
   };
 
   useEffect(() => {
@@ -86,6 +94,9 @@ function LoginScreen(): JSX.Element {
                   required
                 />
               </div>
+              {passwordError && (
+                <p style={{ color: 'red', marginTop: '5px' }}>{passwordError}</p>
+              )}
               <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
           </section>

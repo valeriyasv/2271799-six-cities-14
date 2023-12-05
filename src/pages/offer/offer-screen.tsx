@@ -32,24 +32,23 @@ function OfferScreen(): JSX.Element {
       dispatch(dropOffer());
     };
   }, [id, dispatch]);
-
   return (
     <div className='page'>
       {isLoading ? (
-        <p>Загрузка...</p>) : (
+        <p style={{textAlign: 'center', fontSize: '50px'}}>Loading...</p>) : (
         <>
           <Header />
           <main className="page__main page__main--offer">
             <section className="offer">
               <OfferDetails offer={offer} offers={nearPlacesToRender}
-                reviews={reviewsToRender} offerId={offer.id}
+                reviews={reviewsToRender} offerId={offer?.id}
               />
             </section>
             <div className="container">
               <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighborhood</h2>
                 <div className="near-places__list places__list">
-                  <ListOffers onCardHover={() => {}} offers={nearPlacesToRender} block={'near-places'}/>
+                  <ListOffers size='large' onCardHover={() => {}} offers={nearPlacesToRender} block={'near-places'}/>
                 </div>
               </section>
             </div>

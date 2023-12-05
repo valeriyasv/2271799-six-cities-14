@@ -48,7 +48,9 @@ function MainScreen(): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offerByCity.length} places to stay in {activeCity.name}</b>
               <Sorting activeSorting={activeSorting} onChange={handleSortingChange}/>
-              <ListOffers onCardHover={handleCardHover} offers={sorting[activeSorting](offerByCity)} block={'cities'}/>
+              <div className="cities__places-list places__list tabs__content">
+                <ListOffers size='large' onCardHover={handleCardHover} offers={sorting[activeSorting](offerByCity)} block={'cities'}/>
+              </div>
             </section>
             <div className="cities__right-section">
               <Map offers={offers} block='cities' location={activeCity.location} specialOfferId={hoveredOfferId}/>

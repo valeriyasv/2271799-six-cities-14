@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
 import cn from 'classnames';
 import { useCallback } from 'react';
-import { fetchOffers, postFavorites } from '../../store/api-action';
+import { postFavorites } from '../../store/api-action';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 
@@ -30,15 +30,14 @@ function BookmarkButton({
   const isAuthorized = useAppSelector((state) => state.authorizationStatus);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const {isFavorite, id} = offer;
+  const {id} = offer;
   const handleButtonClick = useCallback(() => {
     if(isAuthorized === AuthorizationStatus.NoAuth) {
       navigate(AppRoute.Login);
     } else {
-      dispatch(postFavorites({offer, offerId: id, status: isFavorite ? 0 : 1}));
-      dispatch(fetchOffers());
+      dispatch(postFavorites({offerId: id, status: isActive ? 0 : 1}));
     }
-  },[dispatch, id, isFavorite, offer]);
+  },[dispatch, id, isActive]);
 
   return (
     <button className={cn(`${block}__bookmark-button`, 'button', {

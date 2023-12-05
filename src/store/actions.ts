@@ -18,6 +18,3 @@ export const dropOffer = createAction(`${NameSpace.Offer}/dropOffer`);
 export const setActiveCity = createAction<CityType>(`${NameSpace.Offers}/setActiveCity`);
 
 export const fetchFavorites = createAction(`${NameSpace.Favorites}/fetchFavorites`);
-
-export const addFavorite = createAction<Offer>('addFavorite');
-export const deleteFavorite = createAction<string>('deleteFavorite');

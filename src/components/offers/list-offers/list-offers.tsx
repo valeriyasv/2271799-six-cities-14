@@ -5,23 +5,24 @@ type ListOffersProps = {
   offers: Offer[];
   block: string;
   onCardHover: (id: string | null) => void;
+  size: 'small' | 'large';
 }
 
-function ListOffers({ offers, block, onCardHover}: ListOffersProps): JSX.Element {
+function ListOffers({ offers, block, onCardHover, size}: ListOffersProps): JSX.Element {
 
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <>
       {offers.map((offer) => (
         <CardOffer
           key={offer.id}
           block={block}
-          size='large'
+          size={size}
           onCardHover={onCardHover}
           offer={offer}
         />
       )
       )}
-    </div>
+    </>
   );
 }
 
