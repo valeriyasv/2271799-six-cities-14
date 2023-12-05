@@ -2,7 +2,7 @@ import { createBrowserHistory } from 'history';
 export enum AppRoute {
   Main = '/',
   Login = '/login',
-  Favorites = '/favorite',
+  Favorites = '/favorites',
   Offer = '/offer/:id',
   NotFound = '/404'
 }
@@ -28,7 +28,7 @@ export enum APIRoute {
   Logout = '/logout',
   Reviews = '/comments/',
   NearPlaces = '/nearby',
-  Favorites = '/favorites'
+  Favorites = '/favorite'
 }
 
 export const CityMapData = {

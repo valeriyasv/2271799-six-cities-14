@@ -153,11 +153,11 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(postFavorites.fulfilled, (state, {payload})=>{
       if(payload.isFavorite){
-        state.offer = payload;
         state.favorites.push(payload);
       } else {
-        state.favorites = state.favorites.filter((fav)=> fav.id !== payload.id);
+        state.favorites = state.favorites.filter((favorite)=> favorite.id !== payload.id);
       }
+      state.offer = payload;
     })
     .addCase(postFavorites.pending, (state) => {
       state.favoriteSendingStatus = RequestStatus.Pending;
