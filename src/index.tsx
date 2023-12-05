@@ -4,6 +4,9 @@ import App from './components/app/app';
 import { Provider } from 'react-redux/es/exports';
 
 import {store} from './store';
+import { checkAuth } from './store/api-action';
+
+store.dispatch(checkAuth());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

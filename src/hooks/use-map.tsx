@@ -21,9 +21,13 @@ function useMap(
         zoom: location.zoom,
       });
 
-      const layer = new TileLayer(TILE_LAYER, {
-        attribution: COPYRIGHT,
-      });
+      const layer = new TileLayer(
+        TILE_LAYER,
+        {
+          attribution:
+            COPYRIGHT
+        }
+      );
 
       instance.addLayer(layer);
 

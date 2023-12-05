@@ -76,7 +76,7 @@ export const fetchFavorites = createAsyncThunk<OfferPreviewType[], undefined, Ex
 export const checkAuth = createAsyncThunk<AuthType, undefined, ExtraType>(
   `${NameSpace.User}/checkAuth`,
   async (_arg, {extra: api}) => {
-    const {data} = await api.post<AuthType>(APIRoute.Login);
+    const {data} = await api.get<AuthType>(APIRoute.Login);
 
     return data;
   }

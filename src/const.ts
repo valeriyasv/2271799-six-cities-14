@@ -92,9 +92,9 @@ export enum CityList {
 }
 
 export const TILE_LAYER =
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 export const COPYRIGHT =
-'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
 export const MAX_REVIEWS_COUNT = 10;
 export const MIN_COMMENT_LENGTH = 50;

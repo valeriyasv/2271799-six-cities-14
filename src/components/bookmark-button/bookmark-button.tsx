@@ -1,8 +1,10 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { Offer } from '../../types/offer';
 import cn from 'classnames';
 import { useCallback } from 'react';
 import { fetchOffers, postFavorites } from '../../store/api-action';
-import { Offer } from '../../types/offer';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const';
 
 export type BookmarkSizeType = 'small' | 'large';
 
@@ -25,13 +27,17 @@ function BookmarkButton({
   size = 'small',
   offer
 }: BookmarkButtonProps) {
-  const dispatch = useAppDispatch();
   const isAuthorized = useAppSelector((state) => state.authorizationStatus);
-
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const {isFavorite, id} = offer;
   const handleButtonClick = useCallback(() => {
-    dispatch(postFavorites({offer, offerId: id, status: isFavorite ? 0 : 1}));
-    dispatch(fetchOffers());
+    if(isAuthorized === AuthorizationStatus.NoAuth) {
+      navigate(AppRoute.Login);
+    } else {
+      dispatch(postFavorites({offer, offerId: id, status: isFavorite ? 0 : 1}));
+      dispatch(fetchOffers());
+    }
   },[dispatch, id, isFavorite, offer]);
 
   return (

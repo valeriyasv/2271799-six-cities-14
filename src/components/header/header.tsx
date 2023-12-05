@@ -15,6 +15,8 @@ function Header(): JSX.Element {
     dispatch(logout());
   };
 
+  const favoritesCount = useAppSelector((state) => state.favorites);
+
   return (
     <header className='header'>
       <div className='container'>
@@ -30,7 +32,7 @@ function Header(): JSX.Element {
                     <div className="header__avatar-wrapper user__avatar-wrapper" style={{'backgroundImage': `url(${userData?.avatarUrl})`}}>
                     </div>
                     <span className="header__user-name user__name">{userData?.email}</span>
-                    <span className="header__favorite-count"></span>
+                    <span className="header__favorite-count">{favoritesCount.length}</span>
                   </Link>
                 </li>
                 <li className="header__nav-item">

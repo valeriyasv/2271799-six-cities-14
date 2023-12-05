@@ -18,7 +18,7 @@ function OfferScreen(): JSX.Element {
   const reviewsToRender = reviewsRender
     .sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, MAX_REVIEWS_COUNT);
-  const { id } = useParams();
+  const {id} = useParams();
   const isLoading = !offer;
 
   useEffect(() => {

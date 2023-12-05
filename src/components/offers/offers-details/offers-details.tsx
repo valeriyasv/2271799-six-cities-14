@@ -7,6 +7,8 @@ import { OffersType } from '../../../types/offers';
 import BookmarkButton from '../../bookmark-button/bookmark-button';
 import { ReviewType } from '../../../types/review';
 import ReviewForm from '../../review/review-form';
+import { useAppSelector } from '../../../hooks';
+import { AuthorizationStatus } from '../../../const';
 
 type OfferTypeProps = {
   offer: Offer | null;
@@ -16,12 +18,12 @@ type OfferTypeProps = {
 }
 
 function OfferDetails ({offer, offers, offerId, reviews}: OfferTypeProps) {
-
+  const status = useAppSelector((state) => state.authorizationStatus);
   if(!offer) {
     return null;
   }
 
-  const ratingPercentage: number = (offer.rating / 6) * 100;
+  const ratingPercentage: number = Math.round((offer.rating / 6) * 100);
   return (
     <>
       <div className="offer__gallery-container container">
@@ -47,7 +49,7 @@ function OfferDetails ({offer, offers, offerId, reviews}: OfferTypeProps) {
               <span style={{ width: `${ratingPercentage}%` }}></span>
               <span className="visually-hidden">Rating</span>
             </div>
-            <span className="offer__rating-value rating__value">{offer.rating}</span>
+            <span className="offer__rating-value rating__value">{Math.round(offer.rating)}</span>
           </div>
           <ul className="offer__features">
             <li className="offer__feature offer__feature--entire">
@@ -97,11 +99,13 @@ function OfferDetails ({offer, offers, offerId, reviews}: OfferTypeProps) {
           </div>
           <section className="offer__reviews reviews">
             <ReviewList reviews={reviews}/>
-            <ReviewForm offerId={offerId}/>
+            {status === AuthorizationStatus.Auth ?
+              <ReviewForm offerId={offerId}/>
+              : ''}
           </section>
         </div>
       </div>
-      <Map block={'offer'} location={offer.location} offers={offers} specialOfferId={null} />
+      <Map block={'offer'} location={offer.location} offers={offers} specialOfferId={offer.id} />
     </>
   );
 }

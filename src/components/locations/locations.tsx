@@ -15,7 +15,7 @@ function Locations(): JSX.Element {
           <li key={city.name} className="locations__item">
             <button
               className={`locations__item-link tabs__item ${activeCity.name === city.name ? 'tabs__item--active' : '' }`}
-              style={{border:'0', backgroundColor: activeCity.name === city.name ? '' : 'inherit'}}
+              style={{border:'0', backgroundColor: activeCity.name === city.name ? '' : 'inherit', cursor: 'pointer'}}
               onClick={() => dispatch(setActiveCity(city))}
             >
               <span>{city.name}</span>
