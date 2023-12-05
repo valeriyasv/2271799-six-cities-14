@@ -35,8 +35,10 @@ function BookmarkButton({
     if(isAuthorized === AuthorizationStatus.NoAuth) {
       navigate(AppRoute.Login);
     } else {
-      dispatch(postFavorites({ offerId: id, status: isFavorite ? 0 : 1}));
-      dispatch(fetchOffers());
+      dispatch(postFavorites({ offerId: id, status: isFavorite ? 0 : 1}))
+        .then(() => {
+          dispatch(fetchOffers());
+        });
     }
   },[dispatch, id, isActive]);
 
