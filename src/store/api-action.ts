@@ -120,7 +120,7 @@ export const deleteFavorites = createAsyncThunk<Offer, {offerId: Offer['id']; st
 }
 >
 (
-  `${NameSpace.Favorites}/postFavorites`,
+  `${NameSpace.Favorites}/deleteFavorites`,
   async({offerId, status},{ extra:api }) => {
     const { data } = await api.delete<Offer>(`favorite/${offerId}/${status}`);
     return data;

@@ -159,6 +159,6 @@ export const reducer = createReducer(initialState, (builder) => {
       state.favoriteSendingStatus = RequestStatus.Pending;
     })
     .addCase(deleteFavorites.fulfilled, (state, action) => {
-      state.favorites.filter(() => action.payload);
+      state.favorites = state.favorites.filter((fav) => fav.id !== action.payload.id);
     });
 });
