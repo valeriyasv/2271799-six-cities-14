@@ -2,7 +2,7 @@ import { createBrowserHistory } from 'history';
 export enum AppRoute {
   Main = '/',
   Login = '/login',
-  Favorites = '/favorites',
+  Favorites = '/favorite',
   Offer = '/offer/:id',
   NotFound = '/404'
 }
