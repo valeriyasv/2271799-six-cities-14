@@ -68,7 +68,7 @@ function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
               onChange={handleRatingChange}
               checked={rating === value}
             />
-            <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title="rating title">
+            <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>
               </svg>
