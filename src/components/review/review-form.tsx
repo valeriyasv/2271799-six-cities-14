@@ -1,9 +1,8 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { MIN_COMMENT_LENGTH, RequestStatus } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from '../../const';
+import { useAppDispatch } from '../../hooks';
 import { postReviews } from '../../store/api-action';
 import { Offer } from '../../types/offer';
-import { fetchReviews } from '../../store/actions';
 
 type ReviewsTypeProps = {
   offerId: Offer['id'];
@@ -11,11 +10,11 @@ type ReviewsTypeProps = {
 
 function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const sendingStatus = useAppSelector((state) => state.reviewsSendingStatus);
   const [comment, setComment] = useState<string>('');
   const [rating, setRating] = useState<number | string>('');
-  const isValid = comment.length >= MIN_COMMENT_LENGTH && rating !== '';
-  // const isSending = sendingStatus === RequestStatus.Pending;
+  const isValid = comment.length >= MIN_COMMENT_LENGTH && rating !== '' && comment.length <= MAX_COMMENT_LENGTH;
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   function handleCommentChange(evt: ChangeEvent<HTMLTextAreaElement>) {
     setComment(evt.target.value);
@@ -25,37 +24,37 @@ function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
     setRating(evt.target.value);
   }
 
-  function handleFormSubmit(evt: FormEvent<HTMLFormElement>) {
+  function handleFormSubmit(evt: FormEvent<HTMLFormElement>): void {
     evt.preventDefault();
+
+    setLoading(true);
+
     dispatch(
       postReviews({
         reviewData: {
           comment,
           rating: +rating,
-          id: 0,
-          user: {
-            id: 0,
-            name: '',
-            isPro: false,
-            avatarUrl: ''
-          },
-          date: ''
         },
         offerId,
       })
-    );
+    )
+      .then(() => {
+        setComment('');
+        setRating('');
+      })
+      .catch(() => {
+        setError('Failed to submit review. Please try again.');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
-  useEffect(() => {
-    if(sendingStatus === RequestStatus.Success) {
-      setComment('');
-      setRating('');
-      dispatch(fetchReviews);
-    }
-  }, [sendingStatus, dispatch]);
 
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
+    <form className="reviews__form form" action="#" method="post"
+      onSubmit={handleFormSubmit}
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {['5', '4', '3', '2', '1'].map((value) => (
@@ -69,7 +68,7 @@ function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
               onChange={handleRatingChange}
               checked={rating === value}
             />
-            <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title="rating title">
+            <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>
               </svg>
@@ -85,13 +84,17 @@ function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
         name="review"
         placeholder='Tell how was your stay, what you like and what can be improved'
       />
+      {comment.length > MAX_COMMENT_LENGTH ?
+        <p className="reviews__error" style={{color: 'red'}}>Comment should not exceed 300 characters.</p>
+        : ''}
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit a review, please make sure to set a rating and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={!isValid}>
-          Submit
+        <button className="reviews__submit form__submit button" type="submit" disabled={!isValid || loading}>
+          {loading ? 'Submitting...' : 'Submit'}
         </button>
+        {error && <p className="reviews__error" style={{ color: 'red' }}>{error}</p>}
       </div>
     </form>
   );

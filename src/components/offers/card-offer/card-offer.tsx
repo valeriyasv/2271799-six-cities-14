@@ -1,33 +1,45 @@
 import { Link } from 'react-router-dom';
 import { CardOfferProps } from '../../../types/common';
-import { useState } from 'react';
+import BookmarkButton from '../../bookmark-button/bookmark-button';
 
-function CardOffer({src, price, title, id, block}: CardOfferProps): JSX.Element {
-  const [active, setActive] = useState<boolean>(false);
+export type CardImageSizeType = 'small' | 'large';
 
+const sizeMap: Record<CardImageSizeType, {width: string; height: string}> = {
+  small: {width: '150', height: '110'},
+  large: {width: '260', height: '200'},
+};
+
+function CardOffer({
+  offer,
+  size,
+  block,
+  onCardHover
+}: CardOfferProps): JSX.Element {
+  const {previewImage, price, title, id, type, isFavorite, isPremium} = offer;
   const handleMouseEnter = () => {
-    setActive(true);
+    onCardHover?.(id);
   };
 
   const handleMouseLeave = () => {
-    setActive(false);
+    onCardHover?.(null);
   };
 
   return (
-    <article className={`${block}__card place-card ${active ? 'place-card--active' : ''}`}
+    <article className={`${block}__card place-card`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className='place-card__mark'>
-        <span>Premium</span>
-      </div>
-      <div className='cities__image-wrapper place-card__image-wrapper'>
+      {isPremium ?
+        <div className='place-card__mark'>
+          <span>Premium</span>
+        </div>
+        : ''}
+      <div className={`${block}__image-wrapper place-card__image-wrapper`}>
         <img
           className='place-card__image'
-          src={src}
-          width='260'
-          height='200'
-          alt='Place image'
+          src={previewImage}
+          {...size === 'small' ? sizeMap.small : sizeMap.large}
+          alt={title}
         />
       </div>
       <div className='place-card__info'>
@@ -36,12 +48,7 @@ function CardOffer({src, price, title, id, block}: CardOfferProps): JSX.Element 
             <b className='place-card__price-value'>&euro;{price}</b>
             <span className='place-card__price-text'>&#47;&nbsp;night</span>
           </div>
-          <button className='place-card__bookmark-button button' type='button'>
-            <svg className='place-card__bookmark-icon' width='18' height='19'>
-              <use xlinkHref='#icon-bookmark'></use>
-            </svg>
-            <span className='visually-hidden'>To bookmarks</span>
-          </button>
+          <BookmarkButton id={id} isActive={isFavorite} block={'place-card'} size={'small'} offer={offer} />
         </div>
         <div className='place-card__rating rating'>
           <div className='place-card__stars rating__stars'>
@@ -50,11 +57,11 @@ function CardOffer({src, price, title, id, block}: CardOfferProps): JSX.Element 
           </div>
         </div>
         <h2 className='place-card__name'>
-          <Link to={`/offers/${id}`}>
+          <Link to={`/offer/${id}`}>
             {title}
           </Link>
         </h2>
-        <p className='place-card__type'>Apartment</p>
+        <p className='place-card__type'>{type}</p>
       </div>
     </article>
   );

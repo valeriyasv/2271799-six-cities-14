@@ -3,7 +3,8 @@ export enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offers'
+  Offer = '/offer/:id',
+  NotFound = '*'
 }
 
 export enum AuthorizationStatus {
@@ -25,16 +26,25 @@ export enum APIRoute {
   Offers = '/offers',
   Login = '/login',
   Logout = '/logout',
-  Reviews = '/reviews',
-  NearPlaces = 'near_places',
+  Reviews = '/comments/',
+  NearPlaces = '/nearby',
+  Favorites = '/favorite'
 }
 
 export const CityMapData = {
-  Amsterdam : {
-    name: 'Amsterdam',
+  Paris : {
+    name: 'Paris',
     location: {
-      latitude: 52.37454,
-      longitude: 4.897976,
+      latitude: 48.85661,
+      longitude: 2.351499,
+      zoom: 13
+    }
+  },
+  Cologne : {
+    name: 'Cologne',
+    location: {
+      latitude: 50.938361,
+      longitude: 6.959974,
       zoom: 13
     }
   },
@@ -46,11 +56,11 @@ export const CityMapData = {
       zoom: 13
     }
   },
-  Paris : {
-    name: 'Paris',
+  Amsterdam : {
+    name: 'Amsterdam',
     location: {
-      latitude: 48.85661,
-      longitude: 2.351499,
+      latitude: 52.37454,
+      longitude: 4.897976,
       zoom: 13
     }
   },
@@ -59,14 +69,6 @@ export const CityMapData = {
     location: {
       latitude: 53.550341,
       longitude: 10.000654,
-      zoom: 13
-    }
-  },
-  Cologne : {
-    name: 'Cologne',
-    location: {
-      latitude: 50.938361,
-      longitude: 6.959974,
       zoom: 13
     }
   },
@@ -80,15 +82,25 @@ export const CityMapData = {
   },
 };
 
+export enum CityList {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf',
+}
+
 export const TILE_LAYER =
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 export const COPYRIGHT =
-'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
 export const MAX_REVIEWS_COUNT = 10;
 export const MIN_COMMENT_LENGTH = 50;
 export const MAX_COMMENT_LENGTH = 300;
 export const MAX_NEAR_PLACES_COUNT = 3;
+export const MAX_IMAGES_COUNT = 6;
 
 export const SortingMap = {
   Popular: 'Popular',

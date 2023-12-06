@@ -6,8 +6,7 @@ type ReviewPropsType = {
 }
 
 function ReviewItem ({review}: ReviewPropsType) {
-  const {user, rating, comment, date} = review;
-  const ratingPercentage: number = (rating / 6) * 100;
+  const ratingPercentage: number = (Math.round(review.rating) * 100) / 5;
 
   return (
     <li className="reviews__item">
@@ -15,14 +14,14 @@ function ReviewItem ({review}: ReviewPropsType) {
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img
             className="reviews__avatar user__avatar"
-            src={user.avatarUrl}
+            src={review.user.avatarUrl}
             width={54}
             height={54}
-            alt={user.name}
+            alt={review.user.name}
           />
         </div>
         <span className="reviews__user-name">
-          {user.name}
+          {review.user.name}
         </span>
       </div>
       <div className="reviews__info">
@@ -33,9 +32,9 @@ function ReviewItem ({review}: ReviewPropsType) {
           </div>
         </div>
         <p className="reviews__text">
-          {comment}
+          {review.comment}
         </p>
-        <time className="reviews__time" dateTime={date}>{formatDate(date)}</time>
+        <time className="reviews__time" dateTime={review.date}>{formatDate(review.date)}</time>
       </div>
     </li>
   );

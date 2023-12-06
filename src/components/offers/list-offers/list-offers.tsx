@@ -1,26 +1,28 @@
 import CardOffer from '../card-offer/card-offer';
-import { OffersType } from '../../../types/offers';
+import { Offer } from '../../../types/offer';
 
 type ListOffersProps = {
-  offers: OffersType[];
+  offers: Offer[];
   block: string;
+  onCardHover: (id: string | null) => void;
+  size: 'small' | 'large';
 }
 
-function ListOffers({ offers, block}: ListOffersProps): JSX.Element {
+function ListOffers({ offers, block, onCardHover, size}: ListOffersProps): JSX.Element {
+
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <>
       {offers.map((offer) => (
         <CardOffer
           key={offer.id}
-          src={offer.previewImage}
-          price={offer.price}
-          title={offer.title}
-          id={offer.id}
           block={block}
+          size={size}
+          onCardHover={onCardHover}
+          offer={offer}
         />
       )
       )}
-    </div>
+    </>
   );
 }
 

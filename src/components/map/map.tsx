@@ -6,6 +6,7 @@ import { OffersType } from '../../types/offers';
 import { LocationType } from '../../types/location';
 
 import useMap from '../../hooks/use-map';
+import { Offer } from '../../types/offer';
 
 type IconConfigType = {
   url: string;
@@ -20,6 +21,7 @@ type MapPropsType = {
   location: LocationType;
   offers: OffersType[];
   specialOfferId: string | null;
+  currentOffer?: Offer;
 }
 
 const defaultIconConfig: IconConfigType = {
@@ -46,10 +48,13 @@ function createIcon(config: IconConfigType) {
   });
 }
 
-function Map({block, location, offers, specialOfferId}: MapPropsType) {
+function Map({block, location, offers, currentOffer, specialOfferId}: MapPropsType) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, location);
 
+  if (block === 'offer' && currentOffer && specialOfferId) {
+    offers = offers.concat(currentOffer);
+  }
   useEffect(() => {
     if(map) {
       map.setView([location.latitude, location.longitude], location.zoom);
@@ -68,7 +73,7 @@ function Map({block, location, offers, specialOfferId}: MapPropsType) {
 
         marker
           .setIcon(
-            offer.id === specialOfferId
+            specialOfferId && offer.id === specialOfferId
               ? createIcon(activeIconConfig)
               : createIcon(defaultIconConfig)
           )
@@ -81,17 +86,22 @@ function Map({block, location, offers, specialOfferId}: MapPropsType) {
     }
   }, [map, offers, specialOfferId]);
 
+  useEffect(() => {
+    if (map) {
+      map.setView([location.latitude, location.longitude], location.zoom);
+    }
+  }, [map, location]);
+
+
   return (
     <section
       className={`${block}__map map`}
       ref={mapRef}
-      style={{
-        height: '100%',
+      style={{ height: '100%',
         minHeight: '500px',
         width: '100%',
         maxWidth: '1144px',
-        margin: '0 auto',
-      }}
+        margin: '0 auto',}}
     />
   );
 }

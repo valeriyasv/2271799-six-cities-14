@@ -1,19 +1,18 @@
-import {Navigate} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import { Navigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { useAppSelector } from '../../hooks';
 
-type PrivateRouteProps = {
-  authorizationStatus: AuthorizationStatus;
-  children: JSX.Element;
-}
+export type TProtectedRoute = {
+    redirectPage: AppRoute;
+    children: JSX.Element;
+  }
 
-function PrivateRoute(props: PrivateRouteProps): JSX.Element {
-  const {authorizationStatus, children} = props;
+export function PrivateRoute(props: TProtectedRoute): JSX.Element {
+  const { redirectPage, children } = props;
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
   return (
-    authorizationStatus === AuthorizationStatus.Auth
-      ? children
-      : <Navigate to={AppRoute.Login} />
+    isAuth ? children : <Navigate to={redirectPage} />
   );
 }
-
-export default PrivateRoute;

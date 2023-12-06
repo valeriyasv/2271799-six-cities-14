@@ -3,25 +3,26 @@ import { ReviewType } from '../types/review';
 import { CityType } from '../types/city';
 import { CityMapData, RequestStatus } from '../const';
 import {createReducer} from '@reduxjs/toolkit';
-import { OfferPreviewType } from '../types/offer-preview';
 import { OffersType } from '../types/offers';
 import { AuthorizationStatus } from '../const';
 import
 {
   fetchOffers,
   fetchReviews,
-  // login,
-  // logout,
-  // checkAuth,
+  login,
+  logout,
+  checkAuth,
   postReviews,
   fetchFavorites,
   fetchNearPlaces,
-  fetchOffer
+  fetchOffer,
+  postFavorites,
 }
   from './api-action';
 import { setActiveCity } from './actions';
 import { UserType } from '../types/user';
 import { dropOffer } from './actions';
+import { OfferPreviewType } from '../types/offer-preview';
 
 const initialState: {
   offers: OffersType[];
@@ -33,6 +34,7 @@ const initialState: {
   offer: Offer | null;
   offerFetchingStatus: RequestStatus;
   favorites: OfferPreviewType[];
+  favoriteSendingStatus: RequestStatus;
   favoritesFetchingStatus: RequestStatus;
   activeCity: CityType;
   authorizationStatus: AuthorizationStatus;
@@ -49,6 +51,7 @@ const initialState: {
   offerFetchingStatus: RequestStatus.Idle,
   favorites: [],
   favoritesFetchingStatus: RequestStatus.Idle,
+  favoriteSendingStatus: RequestStatus.Idle,
   activeCity: CityMapData.Paris,
   authorizationStatus: AuthorizationStatus.Unknown,
   user: null,
@@ -80,12 +83,12 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchNearPlaces.fulfilled, (state, action) => {
       state.nearPlaces = action.payload;
     })
+    .addCase(fetchReviews.fulfilled, (state, action) => {
+      state.reviews = action.payload;
+      state.reviewsFetchingStatus = RequestStatus.Success;
+    })
     .addCase(fetchReviews.pending, (state) => {
       state.reviewsFetchingStatus = RequestStatus.Pending;
-    })
-    .addCase(fetchReviews.fulfilled, (state, action) => {
-      state.reviewsFetchingStatus = RequestStatus.Success;
-      state.reviews = action.payload;
     })
     .addCase(fetchReviews.rejected, (state) => {
       state.reviewsFetchingStatus = RequestStatus.Error;
@@ -115,34 +118,48 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchFavorites.rejected, (state) => {
       state.favoritesFetchingStatus = RequestStatus.Error;
+    })
+    .addCase(login.pending, (state) => {
+      state.loginSendingStatus = RequestStatus.Pending;
+    })
+    .addCase(login.fulfilled, (state, action) => {
+      state.loginSendingStatus = RequestStatus.Success;
+      state.user = action.payload;
+      state.authorizationStatus = AuthorizationStatus.Auth;
+    })
+    .addCase(login.rejected, (state) => {
+      state.loginSendingStatus = RequestStatus.Error;
+      state.user = null;
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+    })
+    // .addCase(dropLoginSendingStatus, (state) => {
+    //   state.loginSendingStatus = RequestStatus.Idle;
+    // })
+    .addCase(logout.pending, (state) => {
+      state.user = null;
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+    })
+    .addCase(checkAuth.pending, (state) => {
+      state.user = null;
+      state.authorizationStatus = AuthorizationStatus.Unknown;
+    })
+    .addCase(checkAuth.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.authorizationStatus = AuthorizationStatus.Auth;
+    })
+    .addCase(checkAuth.rejected, (state) => {
+      state.user = null;
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+    })
+    .addCase(postFavorites.fulfilled, (state, {payload})=>{
+      if(payload.isFavorite){
+        state.favorites.push(payload);
+      } else {
+        state.favorites = state.favorites.filter((favorite)=> favorite.id !== payload.id);
+      }
+      state.offer = payload;
+    })
+    .addCase(postFavorites.pending, (state) => {
+      state.favoriteSendingStatus = RequestStatus.Pending;
     });
-  // .addCase(checkAuth.pending, (state) => {
-  //   state.user = null;
-  //   state.authorizationStatus = AuthorizationStatus.Unknown;
-  // })
-  // .addCase(checkAuth.fulfilled, (state, action) => {
-  //   state.user = action.payload;
-  //   state.authorizationStatus = AuthorizationStatus.Auth;
-  // })
-  // .addCase(checkAuth.rejected, (state) => {
-  //   state.user = null;
-  //   state.authorizationStatus = AuthorizationStatus.NoAuth;
-  // })
-  // .addCase(login.pending, (state) => {
-  //   state.loginSendingStatus = RequestStatus.Pending;
-  // })
-  // .addCase(login.fulfilled, (state, action) => {
-  //   state.loginSendingStatus = RequestStatus.Success;
-  //   state.user = action.payload;
-  //   state.authorizationStatus = AuthorizationStatus.Auth;
-  // })
-  // .addCase(login.rejected, (state) => {
-  //   state.loginSendingStatus = RequestStatus.Error;
-  //   state.user = null;
-  //   state.authorizationStatus = AuthorizationStatus.NoAuth;
-  // })
-  // .addCase(logout.pending, (state) => {
-  //   state.user = null;
-  //   state.authorizationStatus = AuthorizationStatus.NoAuth;
-  // });
 });
