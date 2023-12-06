@@ -118,4 +118,3 @@ export enum RequestStatus {
 }
 
 export const browserHistory = createBrowserHistory();
-

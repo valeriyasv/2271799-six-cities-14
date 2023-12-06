@@ -1,4 +1,4 @@
-import CardOffer from '../card-offer/card-offer';
+import MemorizedCard from '../card-offer/card-offer';
 import { Offer } from '../../../types/offer';
 
 type ListOffersProps = {
@@ -13,7 +13,7 @@ function ListOffers({ offers, block, onCardHover, size}: ListOffersProps): JSX.E
   return (
     <>
       {offers.map((offer) => (
-        <CardOffer
+        <MemorizedCard
           key={offer.id}
           block={block}
           size={size}

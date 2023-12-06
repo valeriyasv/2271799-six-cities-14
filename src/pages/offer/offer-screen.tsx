@@ -1,4 +1,4 @@
-import Header from '../../components/header/header';
+import MemorizedHeader from '../../components/header/header';
 import { useParams } from 'react-router-dom';
 import ListOffers from '../../components/offers/list-offers/list-offers';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -33,12 +33,13 @@ function OfferScreen(): JSX.Element {
       dispatch(dropOffer());
     };
   }, [id, dispatch]);
+
   return (
     <div className='page'>
       {isLoading ? (
         <p style={{textAlign: 'center', fontSize: '50px'}}>Loading...</p>) : (
         <>
-          <Header />
+          <MemorizedHeader />
           <main className="page__main page__main--offer">
             <section className="offer">
               <OfferDetails offer={offer}

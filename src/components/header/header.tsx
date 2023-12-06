@@ -1,9 +1,10 @@
-import Logo from '../logo/logo';
+import MemorizedLogo from '../logo/logo';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthorizationStatus } from '../../const';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { logout } from '../../store/api-action';
+import { memo } from 'react';
 
 function Header(): JSX.Element {
   const status = useAppSelector((state) => state.authorizationStatus);
@@ -21,7 +22,7 @@ function Header(): JSX.Element {
       <div className='container'>
         <div className='header__wrapper'>
           <div className='header__left'>
-            <Logo />
+            <MemorizedLogo />
           </div>
           <nav className='header__nav'>
             {status === AuthorizationStatus.Auth ?
@@ -57,4 +58,6 @@ function Header(): JSX.Element {
   );
 }
 
-export default Header;
+const MemorizedHeader = memo(Header);
+
+export default MemorizedHeader;

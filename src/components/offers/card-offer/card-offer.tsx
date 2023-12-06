@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { CardOfferProps } from '../../../types/common';
 import BookmarkButton from '../../bookmark-button/bookmark-button';
+import { memo } from 'react';
 
 export type CardImageSizeType = 'small' | 'large';
 
@@ -66,5 +67,6 @@ function CardOffer({
     </article>
   );
 }
+const MemorizedCard = memo(CardOffer);
 
-export default CardOffer;
+export default MemorizedCard;

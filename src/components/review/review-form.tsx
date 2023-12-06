@@ -1,8 +1,9 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from '../../const';
-import { useAppDispatch } from '../../hooks';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH, RequestStatus } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postReviews } from '../../store/api-action';
 import { Offer } from '../../types/offer';
+import { dropReviewSendingStatus } from '../../store/actions';
 
 type ReviewsTypeProps = {
   offerId: Offer['id'];
@@ -50,11 +51,30 @@ function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
       });
   }
 
+  const sendingStatus = useAppSelector((state)=> state.reviewsSendingStatus);
+
+  const isSending = sendingStatus === RequestStatus.Pending;
+
+  useEffect(() => {
+    if (sendingStatus === RequestStatus.Success) {
+      dispatch(dropReviewSendingStatus());
+      setComment('');
+      setRating(0);
+    }
+    if (sendingStatus === RequestStatus.Error) {
+      dispatch(dropReviewSendingStatus());
+      setComment(comment);
+      setRating(rating);
+    }
+  }, [sendingStatus, dispatch]);
 
   return (
     <form className="reviews__form form" action="#" method="post"
       onSubmit={handleFormSubmit}
     >
+      {sendingStatus === RequestStatus.Error && (
+        <p>Failed to submit the form. Please try again later </p>
+      )}
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {['5', '4', '3', '2', '1'].map((value) => (
@@ -88,6 +108,7 @@ function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
         <p className="reviews__error" style={{color: 'red'}}>Comment should not exceed 300 characters.</p>
         : ''}
       <div className="reviews__button-wrapper">
+        {isSending}
         <p className="reviews__help">
           To submit a review, please make sure to set a rating and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>

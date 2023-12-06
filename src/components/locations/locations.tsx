@@ -1,6 +1,7 @@
 import { CityMapData } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setActiveCity } from '../../store/actions';
+import { memo } from 'react';
 
 const cities = Object.values(CityMapData);
 
@@ -27,4 +28,6 @@ function Locations(): JSX.Element {
   );
 }
 
-export default Locations;
+const MemorizedLocations = memo(Locations);
+
+export default MemorizedLocations;

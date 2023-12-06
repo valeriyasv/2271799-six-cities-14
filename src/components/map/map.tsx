@@ -100,8 +100,7 @@ function Map({block, location, offers, currentOffer, specialOfferId}: MapPropsTy
       style={{ height: '100%',
         minHeight: '500px',
         width: '100%',
-        maxWidth: '1144px',
-        margin: '0 auto',}}
+      }}
     />
   );
 }

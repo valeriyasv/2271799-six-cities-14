@@ -1,9 +1,7 @@
 import ReviewList from '../../review/review-list';
 import ImageOffer from '../image-offer/image-offer';
 import InsideOffers from '../inside-offer/inside-offer';
-// import Map from '../../map/map';
 import { Offer } from '../../../types/offer';
-// import { OffersType } from '../../../types/offers';
 import BookmarkButton from '../../bookmark-button/bookmark-button';
 import { ReviewType } from '../../../types/review';
 import ReviewForm from '../../review/review-form';
@@ -12,7 +10,6 @@ import { AuthorizationStatus, MAX_IMAGES_COUNT } from '../../../const';
 
 type OfferTypeProps = {
   offer: Offer | null;
-  // offers: OffersType[];
   offerId: Offer['id'];
   reviews: ReviewType[];
   reviewsRender: ReviewType[];
@@ -50,7 +47,7 @@ function OfferDetails ({offer, offerId, reviews, reviewsRender}: OfferTypeProps)
               <span style={{ width: `${ratingPercentage}%` }}></span>
               <span className="visually-hidden">Rating</span>
             </div>
-            <span className="offer__rating-value rating__value">{Math.round(offer.rating)}</span>
+            <span className="offer__rating-value rating__value">{offer.rating}</span>
           </div>
           <ul className="offer__features">
             <li className="offer__feature offer__feature--entire">

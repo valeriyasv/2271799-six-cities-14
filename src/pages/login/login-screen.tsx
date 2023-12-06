@@ -3,11 +3,11 @@ import { useAppSelector } from '../../hooks';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { AuthorizationStatus } from '../../const';
-import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
 import { FormEvent, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { login } from '../../store/api-action';
+import MemorizedLogo from '../../components/logo/logo';
 
 function LoginScreen(): JSX.Element {
   const [valueEmail, setValueEmail] = useState('');
@@ -59,7 +59,7 @@ function LoginScreen(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Logo />
+              <MemorizedLogo />
             </div>
           </div>
         </div>
