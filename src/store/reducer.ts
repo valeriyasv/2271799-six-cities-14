@@ -132,9 +132,6 @@ export const reducer = createReducer(initialState, (builder) => {
       state.user = null;
       state.authorizationStatus = AuthorizationStatus.NoAuth;
     })
-    // .addCase(dropLoginSendingStatus, (state) => {
-    //   state.loginSendingStatus = RequestStatus.Idle;
-    // })
     .addCase(logout.pending, (state) => {
       state.user = null;
       state.authorizationStatus = AuthorizationStatus.NoAuth;

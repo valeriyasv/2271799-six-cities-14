@@ -3,7 +3,6 @@ import { CityType } from '../types/city';
 import { Offer } from '../types/offer';
 import { NameSpace } from '../const';
 import { ReviewType } from '../types/review';
-// import { OfferPreviewType } from '../types/offer-preview';
 
 export const fetchOffers = createAction(`${NameSpace.Offers}/fetchOffers`);
 
