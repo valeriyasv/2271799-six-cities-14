@@ -1,4 +1,3 @@
-// import { CityType } from './city';
 import { Host } from './host';
 import { LocationType } from './location';
 
