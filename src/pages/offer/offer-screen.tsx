@@ -7,6 +7,7 @@ import { fetchNearPlaces, fetchOffer, fetchReviews } from '../../store/api-actio
 import { dropOffer } from '../../store/actions';
 import OfferDetails from '../../components/offers/offers-details/offers-details';
 import { MAX_NEAR_PLACES_COUNT, MAX_REVIEWS_COUNT } from '../../const';
+import Map from '../../components/map/map';
 
 function OfferScreen(): JSX.Element {
   const offer = useAppSelector((state) => state.offer);
@@ -40,9 +41,10 @@ function OfferScreen(): JSX.Element {
           <Header />
           <main className="page__main page__main--offer">
             <section className="offer">
-              <OfferDetails offer={offer} offers={nearPlacesToRender}
+              <OfferDetails offer={offer}
                 reviews={reviews} offerId={offer?.id} reviewsRender={reviewsToRender}
               />
+              <Map block={'offer'} currentOffer={offer} location={offer.location} offers={nearPlacesToRender} specialOfferId={offer.id} />
             </section>
             <div className="container">
               <section className="near-places places">

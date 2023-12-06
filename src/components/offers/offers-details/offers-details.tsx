@@ -1,9 +1,9 @@
 import ReviewList from '../../review/review-list';
 import ImageOffer from '../image-offer/image-offer';
 import InsideOffers from '../inside-offer/inside-offer';
-import Map from '../../map/map';
+// import Map from '../../map/map';
 import { Offer } from '../../../types/offer';
-import { OffersType } from '../../../types/offers';
+// import { OffersType } from '../../../types/offers';
 import BookmarkButton from '../../bookmark-button/bookmark-button';
 import { ReviewType } from '../../../types/review';
 import ReviewForm from '../../review/review-form';
@@ -12,13 +12,13 @@ import { AuthorizationStatus, MAX_IMAGES_COUNT } from '../../../const';
 
 type OfferTypeProps = {
   offer: Offer | null;
-  offers: OffersType[];
+  // offers: OffersType[];
   offerId: Offer['id'];
   reviews: ReviewType[];
   reviewsRender: ReviewType[];
 }
 
-function OfferDetails ({offer, offers, offerId, reviews, reviewsRender}: OfferTypeProps) {
+function OfferDetails ({offer, offerId, reviews, reviewsRender}: OfferTypeProps) {
   const status = useAppSelector((state) => state.authorizationStatus);
   if(!offer) {
     return null;
@@ -106,7 +106,6 @@ function OfferDetails ({offer, offers, offerId, reviews, reviewsRender}: OfferTy
           </section>
         </div>
       </div>
-      <Map block={'offer'} location={offer.location} offers={offers} specialOfferId={offerId} />
     </>
   );
 }
