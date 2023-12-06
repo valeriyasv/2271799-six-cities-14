@@ -6,7 +6,7 @@ type ReviewPropsType = {
 }
 
 function ReviewItem ({review}: ReviewPropsType) {
-  const ratingPercentage: number = (review.rating / 6) * 100;
+  const ratingPercentage: number = (Math.round(review.rating) * 100) / 5;
 
   return (
     <li className="reviews__item">

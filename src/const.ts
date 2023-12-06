@@ -32,11 +32,19 @@ export enum APIRoute {
 }
 
 export const CityMapData = {
-  Amsterdam : {
-    name: 'Amsterdam',
+  Paris : {
+    name: 'Paris',
     location: {
-      latitude: 52.37454,
-      longitude: 4.897976,
+      latitude: 48.85661,
+      longitude: 2.351499,
+      zoom: 13
+    }
+  },
+  Cologne : {
+    name: 'Cologne',
+    location: {
+      latitude: 50.938361,
+      longitude: 6.959974,
       zoom: 13
     }
   },
@@ -48,11 +56,11 @@ export const CityMapData = {
       zoom: 13
     }
   },
-  Paris : {
-    name: 'Paris',
+  Amsterdam : {
+    name: 'Amsterdam',
     location: {
-      latitude: 48.85661,
-      longitude: 2.351499,
+      latitude: 52.37454,
+      longitude: 4.897976,
       zoom: 13
     }
   },
@@ -61,14 +69,6 @@ export const CityMapData = {
     location: {
       latitude: 53.550341,
       longitude: 10.000654,
-      zoom: 13
-    }
-  },
-  Cologne : {
-    name: 'Cologne',
-    location: {
-      latitude: 50.938361,
-      longitude: 6.959974,
       zoom: 13
     }
   },

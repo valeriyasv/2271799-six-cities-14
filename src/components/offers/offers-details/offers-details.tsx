@@ -24,7 +24,7 @@ function OfferDetails ({offer, offers, offerId, reviews, reviewsRender}: OfferTy
     return null;
   }
 
-  const ratingPercentage: number = Math.round((offer.rating / 6) * 100);
+  const ratingPercentage: number = (Math.round(offer.rating) * 100) / 5;
   return (
     <>
       <div className="offer__gallery-container container">
