@@ -10,8 +10,7 @@ function Header(): JSX.Element {
   const userData = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
-  const handleLogoutClick = (evt: React.MouseEvent<HTMLAnchorElement>) => {
-    evt.preventDefault();
+  const handleLogoutClick = () => {
     dispatch(logout());
   };
 

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { MIN_COMMENT_LENGTH } from '../../const';
+import { MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { postReviews } from '../../store/api-action';
 import { Offer } from '../../types/offer';
@@ -12,7 +12,9 @@ function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
   const dispatch = useAppDispatch();
   const [comment, setComment] = useState<string>('');
   const [rating, setRating] = useState<number | string>('');
-  const isValid = comment.length >= MIN_COMMENT_LENGTH && rating !== '';
+  const isValid = comment.length >= MIN_COMMENT_LENGTH && rating !== '' && comment.length <= MAX_COMMENT_LENGTH;
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   function handleCommentChange(evt: ChangeEvent<HTMLTextAreaElement>) {
     setComment(evt.target.value);
@@ -22,8 +24,11 @@ function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
     setRating(evt.target.value);
   }
 
-  function handleFormSubmit(evt: FormEvent<HTMLFormElement>) {
+  function handleFormSubmit(evt: FormEvent<HTMLFormElement>): void {
     evt.preventDefault();
+
+    setLoading(true);
+
     dispatch(
       postReviews({
         reviewData: {
@@ -32,10 +37,19 @@ function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
         },
         offerId,
       })
-    );
-    setComment('');
-    setRating('');
+    )
+      .then(() => {
+        setComment('');
+        setRating('');
+      })
+      .catch(() => {
+        setError('Failed to submit review. Please try again.');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
+
 
   return (
     <form className="reviews__form form" action="#" method="post"
@@ -70,13 +84,17 @@ function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
         name="review"
         placeholder='Tell how was your stay, what you like and what can be improved'
       />
+      {comment.length > MAX_COMMENT_LENGTH ?
+        <p className="reviews__error" style={{color: 'red'}}>Comment should not exceed 300 characters.</p>
+        : ''}
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit a review, please make sure to set a rating and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={!isValid}>
-          Submit
+        <button className="reviews__submit form__submit button" type="submit" disabled={!isValid || loading}>
+          {loading ? 'Submitting...' : 'Submit'}
         </button>
+        {error && <p className="reviews__error" style={{ color: 'red' }}>{error}</p>}
       </div>
     </form>
   );

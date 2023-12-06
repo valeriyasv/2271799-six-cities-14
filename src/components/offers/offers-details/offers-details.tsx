@@ -8,7 +8,7 @@ import BookmarkButton from '../../bookmark-button/bookmark-button';
 import { ReviewType } from '../../../types/review';
 import ReviewForm from '../../review/review-form';
 import { useAppSelector } from '../../../hooks';
-import { AuthorizationStatus } from '../../../const';
+import { AuthorizationStatus, MAX_IMAGES_COUNT } from '../../../const';
 
 type OfferTypeProps = {
   offer: Offer | null;
@@ -29,7 +29,7 @@ function OfferDetails ({offer, offers, offerId, reviews, reviewsRender}: OfferTy
     <>
       <div className="offer__gallery-container container">
         <div className="offer__gallery">
-          {offer.images.map((item) => <ImageOffer src={item} key={item} />)}
+          {offer.images.slice(0, MAX_IMAGES_COUNT).map((item) => <ImageOffer src={item} key={item} />)}
         </div>
       </div>
       <div className="offer__container container">
@@ -57,10 +57,10 @@ function OfferDetails ({offer, offers, offerId, reviews, reviewsRender}: OfferTy
               {offer.type.charAt(0).toUpperCase() + offer.type.slice(1)}
             </li>
             <li className="offer__feature offer__feature--bedrooms">
-              {offer.bedrooms} Bedrooms
+              {offer.bedrooms} {offer.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
             </li>
             <li className="offer__feature offer__feature--adults">
-                Max {offer.maxAdults} adults
+                Max {offer.maxAdults} {offer.maxAdults === 1 ? 'adult' : 'adults'}
             </li>
           </ul>
           <div className="offer__price">
@@ -89,7 +89,7 @@ function OfferDetails ({offer, offers, offerId, reviews, reviewsRender}: OfferTy
                 {offer.host.name}
               </span>
               <span className="offer__user-status">
-                {offer.host.isPro}
+                {offer.host.isPro ? 'Pro' : ''}
               </span>
             </div>
             <div className="offer__description">

@@ -100,6 +100,7 @@ export const MAX_REVIEWS_COUNT = 10;
 export const MIN_COMMENT_LENGTH = 50;
 export const MAX_COMMENT_LENGTH = 300;
 export const MAX_NEAR_PLACES_COUNT = 3;
+export const MAX_IMAGES_COUNT = 6;
 
 export const SortingMap = {
   Popular: 'Popular',
