@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom';
+import { memo } from 'react';
 
 function Logo(): JSX.Element {
   return (
@@ -8,4 +9,6 @@ function Logo(): JSX.Element {
   );
 }
 
-export default Logo;
+const MemorizedLogo = memo(Logo);
+
+export default MemorizedLogo;

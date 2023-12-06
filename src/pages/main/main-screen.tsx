@@ -1,6 +1,6 @@
 import ListOffers from '../../components/offers/list-offers/list-offers';
-import Header from '../../components/header/header';
-import Locations from '../../components/locations/locations';
+import MemorizedHeader from '../../components/header/header';
+import MemorizedLocations from '../../components/locations/locations';
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import Map from '../../components/map/map';
@@ -36,12 +36,12 @@ function MainScreen(): JSX.Element {
         <title>6 cities. Choose your place!</title>
       </Helmet>
 
-      <Header />
+      <MemorizedHeader />
       {offers.length === 0 ? <MainEmpty /> :
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
-            <Locations />
+            <MemorizedLocations />
           </div>
           <div className="cities">
             <div className="cities__places-container container">

@@ -50,7 +50,6 @@ function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
       });
   }
 
-
   return (
     <form className="reviews__form form" action="#" method="post"
       onSubmit={handleFormSubmit}

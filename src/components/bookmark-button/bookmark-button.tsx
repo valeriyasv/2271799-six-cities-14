@@ -31,6 +31,7 @@ function BookmarkButton({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const {id, isFavorite} = offer;
+
   const handleButtonClick = useCallback(() => {
     if(isAuthorized === AuthorizationStatus.NoAuth) {
       navigate(AppRoute.Login);
@@ -40,7 +41,7 @@ function BookmarkButton({
           dispatch(fetchOffers());
         });
     }
-  },[dispatch, id, isActive]);
+  }, [dispatch, id, isAuthorized, isFavorite, navigate]);
 
   return (
     <button className={cn(`${block}__bookmark-button`, 'button', {

@@ -1,4 +1,4 @@
-import Header from '../../components/header/header';
+import MemorizedHeader from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import {Helmet} from 'react-helmet-async';
 import ListOffers from '../../components/offers/list-offers/list-offers';
@@ -35,7 +35,7 @@ function FavoritesScreen(): JSX.Element {
       <Helmet>
         <title>6 cities. Favorites offers</title>
       </Helmet>
-      <Header />
+      <MemorizedHeader />
       {
         favorites.length === 0 ? <FavoritesEmpty /> :
           <main className="page__main page__main--favorites">
