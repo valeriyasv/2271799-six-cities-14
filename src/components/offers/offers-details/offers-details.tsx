@@ -47,7 +47,7 @@ function OfferDetails ({offer, offerId, reviews, reviewsRender}: OfferTypeProps)
               <span style={{ width: `${ratingPercentage}%` }}></span>
               <span className="visually-hidden">Rating</span>
             </div>
-            <span className="offer__rating-value rating__value">{Math.round(offer.rating)}</span>
+            <span className="offer__rating-value rating__value">{offer.rating}</span>
           </div>
           <ul className="offer__features">
             <li className="offer__feature offer__feature--entire">
