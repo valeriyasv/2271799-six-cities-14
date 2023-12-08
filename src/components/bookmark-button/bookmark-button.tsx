@@ -4,7 +4,8 @@ import cn from 'classnames';
 import { useCallback } from 'react';
 import { fetchOffers, postFavorites } from '../../store/api-action';
 import { useNavigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
+import { getAuthorizationStatus } from '../../store/user/selector';
 
 export type BookmarkSizeType = 'small' | 'large';
 
@@ -27,13 +28,13 @@ function BookmarkButton({
   size = 'small',
   offer
 }: BookmarkButtonProps) {
-  const isAuthorized = useAppSelector((state) => state.authorizationStatus);
+  const isAuthorized = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const {id, isFavorite} = offer;
 
   const handleButtonClick = useCallback(() => {
-    if(isAuthorized === AuthorizationStatus.NoAuth) {
+    if(isAuthorized) {
       navigate(AppRoute.Login);
     } else {
       dispatch(postFavorites({ offerId: id, status: isFavorite ? 0 : 1}))

@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postReviews } from '../../store/api-action';
 import { Offer } from '../../types/offer';
 import { dropReviewSendingStatus } from '../../store/actions';
+import { getSendingStatus } from '../../store/reviews/selector';
 
 type ReviewsTypeProps = {
   offerId: Offer['id'];
@@ -51,7 +52,7 @@ function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
       });
   }
 
-  const sendingStatus = useAppSelector((state)=> state.reviewsSendingStatus);
+  const sendingStatus = useAppSelector(getSendingStatus);
 
   const isSending = sendingStatus === RequestStatus.Pending;
 
@@ -66,7 +67,7 @@ function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
       setComment(comment);
       setRating(rating);
     }
-  }, [sendingStatus, dispatch]);
+  }, [sendingStatus, dispatch, comment, rating]);
 
   return (
     <form className="reviews__form form" action="#" method="post"
