@@ -8,7 +8,7 @@ const initialState: NearPlaces = {
 };
 
 export const nearPlaces = createSlice({
-  name: NameSpace.Offers,
+  name: NameSpace.NearPlaces,
   initialState,
   reducers: {},
   extraReducers(builder) {
