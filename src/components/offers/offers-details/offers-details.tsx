@@ -7,7 +7,7 @@ import { ReviewType } from '../../../types/review';
 import ReviewForm from '../../review/review-form';
 import { useAppSelector } from '../../../hooks';
 import { MAX_IMAGES_COUNT } from '../../../const';
-import { getAuthorizationStatus } from '../../../store/user/selector';
+import { getIsAuthorized } from '../../../store/user/selector';
 
 type OfferTypeProps = {
   offer: Offer | null;
@@ -17,7 +17,7 @@ type OfferTypeProps = {
 }
 
 function OfferDetails ({offer, offerId, reviews, reviewsRender}: OfferTypeProps) {
-  const status = useAppSelector(getAuthorizationStatus);
+  const status = useAppSelector(getIsAuthorized);
   if(!offer) {
     return null;
   }

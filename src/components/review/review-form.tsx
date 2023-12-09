@@ -54,18 +54,17 @@ function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
 
   const sendingStatus = useAppSelector(getSendingStatus);
 
-  const isSending = sendingStatus === RequestStatus.Pending;
-
   useEffect(() => {
     if (sendingStatus === RequestStatus.Success) {
       dispatch(dropReviewSendingStatus());
       setComment('');
       setRating(0);
-    }
-    if (sendingStatus === RequestStatus.Error) {
-      dispatch(dropReviewSendingStatus());
-      setComment(comment);
-      setRating(rating);
+    } else {
+      if (sendingStatus === RequestStatus.Error) {
+        dispatch(dropReviewSendingStatus());
+        setComment(comment);
+        setRating(rating);
+      }
     }
   }, [sendingStatus, dispatch, comment, rating]);
 
@@ -109,7 +108,6 @@ function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
         <p className="reviews__error" style={{color: 'red'}}>Comment should not exceed 300 characters.</p>
         : ''}
       <div className="reviews__button-wrapper">
-        {isSending}
         <p className="reviews__help">
           To submit a review, please make sure to set a rating and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>

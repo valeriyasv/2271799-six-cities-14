@@ -5,4 +5,3 @@ export type OfferType = {
   offer: Offer | null;
   offerFetchingStatus: RequestStatus;
 }
-

@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
 import cn from 'classnames';
 import { useCallback } from 'react';
-import { fetchOffers, postFavorites } from '../../store/api-action';
+import { fetchOffer, fetchOffers, postFavorites } from '../../store/api-action';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { getIsAuthorized } from '../../store/user/selector';
@@ -40,6 +40,7 @@ function BookmarkButton({
       dispatch(postFavorites({ offerId: id, status: isFavorite ? 0 : 1}))
         .then(() => {
           dispatch(fetchOffers());
+          dispatch(fetchOffer(id));
         });
     }
   }, [dispatch, id, isAuthorized, isFavorite, navigate]);
