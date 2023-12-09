@@ -7,10 +7,10 @@ import { reviews } from './reviews/reviews';
 import { user } from './user/user';
 
 export const reducer = combineReducers({
+  'FAVORITES': favorites.reducer,
   'OFFERS': offers.reducer,
   'OFFER': offer.reducer,
   'NEAR_PLACES': nearPlaces.reducer,
-  'FAVORITES': favorites.reducer,
   'REVIEWS': reviews.reducer,
   'USER': user.reducer
 });

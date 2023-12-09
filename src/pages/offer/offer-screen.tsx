@@ -54,7 +54,7 @@ function OfferScreen(): JSX.Element {
               <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighborhood</h2>
                 <div className="near-places__list places__list">
-                  <ListOffers size='large' onCardHover={() => {}} offers={nearPlacesToRender} block={'near-places'}/>
+                  <ListOffers size='large' offers={nearPlacesToRender} block={'near-places'}/>
                 </div>
               </section>
             </div>

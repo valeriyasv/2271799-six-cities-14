@@ -58,15 +58,13 @@ function ReviewForm({offerId}: ReviewsTypeProps): JSX.Element {
     if (sendingStatus === RequestStatus.Success) {
       dispatch(dropReviewSendingStatus());
       setComment('');
-      setRating(0);
-    } else {
-      if (sendingStatus === RequestStatus.Error) {
-        dispatch(dropReviewSendingStatus());
-        setComment(comment);
-        setRating(rating);
-      }
+      setRating('');
+      setError(null);
+    } else if (sendingStatus === RequestStatus.Error) {
+      dispatch(dropReviewSendingStatus());
+      setError('Failed to submit review. Please try again.');
     }
-  }, [sendingStatus, dispatch, comment, rating]);
+  }, [sendingStatus, dispatch]);
 
   return (
     <form className="reviews__form form" action="#" method="post"

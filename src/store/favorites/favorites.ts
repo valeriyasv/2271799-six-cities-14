@@ -31,7 +31,6 @@ export const favorites = createSlice({
         } else {
           state.favorites = state.favorites.filter((favorite)=> favorite.id !== payload.id);
         }
-        state.offer = payload;
       });
   }
 });
