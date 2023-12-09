@@ -8,10 +8,10 @@ import OfferScreen from '../../pages/offer/offer-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import { PrivateRoute } from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
-import { getAuthorizationStatus } from '../../store/user/selector';
+import { getIsAuthorized } from '../../store/user/selector';
 
 function App(): JSX.Element {
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const authorizationStatus = useAppSelector(getIsAuthorized);
   const isAuth = authorizationStatus;
 
   return (
@@ -26,7 +26,7 @@ function App(): JSX.Element {
           }
           />
           <Route path={AppRoute.Favorites} element={
-            <PrivateRoute redirectPage={AppRoute.Login} isAuth={!isAuth}>
+            <PrivateRoute redirectPage={AppRoute.Login} isAuth={isAuth}>
               <FavoritesScreen />
             </PrivateRoute>
           }

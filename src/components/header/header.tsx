@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { logout } from '../../store/api-action';
 import { memo } from 'react';
-import { getAuthorizationStatus, getUser } from '../../store/user/selector';
+import { getIsAuthorized, getUser } from '../../store/user/selector';
 import { getFavorites } from '../../store/favorites/selector';
 
 function Header(): JSX.Element {
-  const status = useAppSelector(getAuthorizationStatus);
+  const status = useAppSelector(getIsAuthorized);
   const userData = useAppSelector(getUser);
   const dispatch = useAppDispatch();
 

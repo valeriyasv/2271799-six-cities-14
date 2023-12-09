@@ -15,7 +15,7 @@ import { RequestStatus } from '../../const';
 import Loader from '../../components/loader/loader';
 import ErrorDisplay from '../../components/error-display/error-display';
 import { getActiveCity, getOffers } from '../../store/offers/selector';
-import { getFetchingStatus } from '../../store/offer/selector';
+import { getFetchingStatus } from '../../store/offers/selector';
 
 function MainScreen(): JSX.Element {
   const dispatch = useAppDispatch();
